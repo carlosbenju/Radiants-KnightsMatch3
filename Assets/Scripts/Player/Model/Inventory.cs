@@ -62,12 +62,5 @@ public class Inventory
 
     public void Load() => Items = SaveGameManager.CurrentSaveData.PlayerData.Inventory.GetInventoryItems();
 
-    public void Save()
-    {
-        foreach (InventoryItem item in Items)
-        {
-            Debug.Log(item.Type + ": " + item.Amount);
-        }
-        SaveGameManager.CurrentSaveData.PlayerData.Inventory = this;
-    } 
+    public void Save() => SaveGameManager.CurrentSaveData.PlayerData.Inventory = this;
 }
