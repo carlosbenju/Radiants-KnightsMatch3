@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9677b7fe7812847b91068b2713bc23, type: 3}
+  m_Name: Green Tile
+  m_EditorClassIdentifier: 
+  type: 1
+  boosterType: 2
+  itemName: Green Tile
+  sprite: {fileID: 21300000, guid: 01bcefcdfe3b1b64d8f2344a0dc2234d, type: 3}
