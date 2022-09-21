@@ -55,6 +55,18 @@ public class MainMenuView : MonoBehaviour
         };
     }
 
+    public void OpenLevelSelectionPopup()
+    {
+        Addressables.LoadAssetAsync<GameObject>("level_selection_popup").Completed += handle =>
+        {
+            if (handle.Result != null)
+            {
+                LevelSelectionView popup = handle.Result.GetComponent<LevelSelectionView>();
+                Instantiate(popup, _parent).Initialize(_player);
+            }
+        };
+    }
+
     void UpdateMenuData()
     {
         UpdateResource("Gold");
