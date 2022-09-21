@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: player_info_popup_v2
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: eaf5db7b98ed3e04abf81015c8aff4ed
+    m_Address: level_selection_popup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 87403dd8e099e1643a4d72510b524413, type: 2}
   m_SchemaSet:
