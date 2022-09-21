@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Level: 2
   Waves:
-  - {fileID: 11400000, guid: a399ea7462cb86d4aa8662fc819e8c2d, type: 2}
   - {fileID: 11400000, guid: 90b0abb820ede4b45845a56d692cc780, type: 2}
+  - {fileID: 11400000, guid: a399ea7462cb86d4aa8662fc819e8c2d, type: 2}
   - {fileID: 11400000, guid: 214819c32f475ed43b6953e2dff787c8, type: 2}
   Rewards:
   - Type: Gold

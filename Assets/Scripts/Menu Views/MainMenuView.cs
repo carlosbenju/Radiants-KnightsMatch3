@@ -11,16 +11,14 @@ public class MainMenuView : MonoBehaviour
 {
     [SerializeField] Transform _parent;
 
-    [SerializeField] TextMeshProUGUI _goldText;
-    [SerializeField] TextMeshProUGUI _diamondText;
-    [SerializeField] TextMeshProUGUI _bombBoosterText;
-    [SerializeField] TextMeshProUGUI _colorBombBoosterText;
-
-
-    [SerializeField] TextMeshProUGUI _currentLevelText;
+    [SerializeField] TMP_Text _goldText;
+    [SerializeField] TMP_Text _diamondText;
+    [SerializeField] TMP_Text _bombBoosterText;
+    [SerializeField] TMP_Text _colorBombBoosterText;
+    [SerializeField] TMP_Text _currentLevelText;
+    [SerializeField] TMP_Text _playerName = null;
 
     [SerializeField] Image _playerImage = null;
-    [SerializeField] TextMeshProUGUI _playerName = null;
 
     [SerializeField] List<Sprite> _imageSprites = null;
 
@@ -62,7 +60,7 @@ public class MainMenuView : MonoBehaviour
             if (handle.Result != null)
             {
                 LevelSelectionView popup = handle.Result.GetComponent<LevelSelectionView>();
-                Instantiate(popup, _parent).Initialize(_player);
+                Instantiate(popup, _parent).Initialize(_player, UpdatePlayerData,handle);
             }
         };
     }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class LevelSelectionView : MonoBehaviour
 {
@@ -11,11 +13,18 @@ public class LevelSelectionView : MonoBehaviour
     PlayerModel _player;
     List<LevelModel> _levels;
 
-    public void Initialize(PlayerModel playerModel)
+    AsyncOperationHandle _levelSelectionPopupHandle;
+
+    Action _onPopupClosed;
+
+    public void Initialize(PlayerModel playerModel, Action onPopupClosed, AsyncOperationHandle handle)
     {
         _player = playerModel;
         _levelSOs = LevelsDatabase.Levels;
         _levels = new List<LevelModel>();
+        _onPopupClosed = onPopupClosed;
+        _levelSelectionPopupHandle = handle;
+        
 
         foreach (LevelSO levelSO in _levelSOs)
         {
@@ -45,5 +54,18 @@ public class LevelSelectionView : MonoBehaviour
     public void SelectLevel(int level)
     {
         _player.playerData.CurrentLevel = level;
+        Debug.Log("Current level: " + _player.playerData.CurrentLevel);
+        Close();
+    }
+
+    public void Close()
+    {
+        _onPopupClosed?.Invoke();
+        if (_levelSelectionPopupHandle.IsValid())
+        {
+            Addressables.Release(_levelSelectionPopupHandle);
+        }
+
+        Destroy(gameObject);
     }
 }
