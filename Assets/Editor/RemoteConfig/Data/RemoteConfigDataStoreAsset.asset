@@ -12,38 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"14c02a94-b26e-443e-9c43-bc8a1f9b9635\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b458a829-cb07-4663-a817-6eb1ad1b8fa6\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"c44cd4d4-6fbb-4299-9580-32fb61fd19c3\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"b0085a75-2aa9-40bc-82d1-f47e2a59fab8\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e939dcf2-ae94-4dff-9bd9-e639512b9d1d\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c4055648-f5f6-4615-9363-613c128f0d87\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"cee9a0df-5d2e-47e8-9025-2908382d120a\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"80eaeb06-96b9-4a4a-acca-e78cf7f83ee7\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"1b31965c-5787-4b5d-a266-4d68f3b71b8f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"bf0cc3ec-5382-46ec-90a1-214c1ddea6aa\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"4900b0af-0ad5-4fa7-bf1c-6b1dac826bc1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"37f135e3-ca3d-415f-ad15-f2638c22fa85\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
     }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"14c02a94-b26e-443e-9c43-bc8a1f9b9635\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b458a829-cb07-4663-a817-6eb1ad1b8fa6\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"c44cd4d4-6fbb-4299-9580-32fb61fd19c3\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"b0085a75-2aa9-40bc-82d1-f47e2a59fab8\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e939dcf2-ae94-4dff-9bd9-e639512b9d1d\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c4055648-f5f6-4615-9363-613c128f0d87\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"cee9a0df-5d2e-47e8-9025-2908382d120a\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"80eaeb06-96b9-4a4a-acca-e78cf7f83ee7\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"1b31965c-5787-4b5d-a266-4d68f3b71b8f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"bf0cc3ec-5382-46ec-90a1-214c1ddea6aa\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"4900b0af-0ad5-4fa7-bf1c-6b1dac826bc1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"37f135e3-ca3d-415f-ad15-f2638c22fa85\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
     }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"2924ef6a-0719-42c5-97d9-7a644b30f3e2\",\r\n   
