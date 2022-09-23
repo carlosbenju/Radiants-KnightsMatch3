@@ -18,6 +18,15 @@ public static class TileAnimations
             .AsyncWaitForCompletion();
     }
 
+    public static async Task DissapearAnimation(GOTileView tileToDissapear)
+    {
+        Sequence disappearIconSeq = DOTween.Sequence();
+        disappearIconSeq.Join(tileToDissapear.transform.DOScale(Vector3.zero, _tweenDuration));
+
+        await disappearIconSeq.Play()
+            .AsyncWaitForCompletion();
+    }
+
     public static async Task AppearAnimation(TileView tileToCreate)
     {
         Sequence appearIconSeq = DOTween.Sequence();
