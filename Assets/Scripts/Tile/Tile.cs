@@ -16,6 +16,8 @@ public class Tile
     public Tile topTile;
     public Tile bottomTile;
 
+    public bool IsEmpty;
+
     public Tile(int x, int y, ItemSO item)
     {
         this.x = x;

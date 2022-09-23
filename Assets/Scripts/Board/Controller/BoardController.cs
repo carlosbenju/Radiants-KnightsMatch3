@@ -39,6 +39,20 @@ public class BoardController
         {
             Match3Action(tile, matchesOnPressedTile);
         }
+
+        CollapseTiles();
+    }
+
+    public void CollapseTiles()
+    {
+        for (int y = 0; y < Model.height; y++)
+        {
+            for (int x = 0; x < Model.width; x++)
+            {
+                if (!Model.board[x, y].IsEmpty)
+                    continue;
+            }
+        }
     }
 
     private void Match3Action(Tile tile, List<Tile> matchesOnPressedTile)

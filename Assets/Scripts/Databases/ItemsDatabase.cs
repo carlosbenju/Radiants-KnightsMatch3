@@ -9,6 +9,6 @@ public class ItemsDatabase : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
-        Items = Resources.LoadAll<ItemSO>("ItemsTest/");
+        Items = Resources.LoadAll<ItemSO>("Items/");
     }
 }
