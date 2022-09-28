@@ -22,11 +22,13 @@ public class ShopView : MonoBehaviour
 
     AnalyticsGameService _analyticsService = null;
     AdsGameService _adsService = null;
+    IIAPService _iapService = null;
 
     public void Initialize(ShopController controller, Inventory inventory)
     {
         _analyticsService = ServiceLocator.GetService<AnalyticsGameService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
+        _iapService = ServiceLocator.GetService<IIAPService>();
 
         _controller = controller;
         _inventory = inventory;
@@ -94,6 +96,18 @@ public class ShopView : MonoBehaviour
 
             return;
         }
+
+        if (model.IsObtainedWithIAP)
+        {
+            if (await _iapService.StartPurchase("test1"))
+            {
+                _controller.PurchaseItem(model);
+                _transactionsDone++;
+            }
+
+            return;
+        }
+
         _controller.PurchaseItem(model);
         _transactionsDone++;
     }

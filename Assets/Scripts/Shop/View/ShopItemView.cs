@@ -24,10 +24,13 @@ public class ShopItemView : MonoBehaviour
     Action<ShopItemModel> _onClickedEvent;
 
     AdsGameService _adsService = null;
+    IIAPService _iapService = null;
 
     public void SetData(ShopItemModel model, Inventory inventory, Action<ShopItemModel> onClickedEvent)
     {
         _adsService = ServiceLocator.GetService<AdsGameService>();
+        _iapService = ServiceLocator.GetService<IIAPService>();
+
         _model = model;
         _inventory = inventory;
         _onClickedEvent = onClickedEvent;
@@ -58,7 +61,6 @@ public class ShopItemView : MonoBehaviour
 
         _image.sprite = _imageSprites.Find(sprite => sprite.name == _model.Image);
         _title.text = _model.Name;
-        _cost.text = _model.IsObtainedWithAd ? "" : _model.Cost.Amount.ToString();
         _costImage.sprite = _model.IsObtainedWithAd 
             ? _costSprites.Find(sprite => sprite.name == "AdCost") 
             : _costSprites.Find(sprite => sprite.name == _model.Cost.Type);
@@ -67,9 +69,16 @@ public class ShopItemView : MonoBehaviour
         {
             _itemButton.interactable =  false;
             StartCoroutine(WaitForAdToLoad());
-        } else
+        }
+        else if (_model.IsObtainedWithIAP)
+        {
+            _itemButton.interactable = false;
+            StartCoroutine(WaitForIAPReady());
+        } 
+        else
         {
             _itemButton.interactable = UserCanPay() ? true : false;
+            _cost.text = _model.Cost.Amount.ToString();
         }
     }
 
@@ -99,6 +108,20 @@ public class ShopItemView : MonoBehaviour
         }
 
         _itemButton.interactable = true;
+        _cost.text = string.Empty;
+    }
+
+    IEnumerator WaitForIAPReady()
+    {
+        _cost.text = "Loading";
+
+        while (!_iapService.IsReady())
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        _itemButton.interactable = true;
+        _cost.text = _iapService.GetLocalizedPrice("test1");
     }
 
     public void OnClicked()

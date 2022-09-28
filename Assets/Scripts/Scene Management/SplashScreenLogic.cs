@@ -46,18 +46,24 @@ public class SplashScreenLogic : MonoBehaviour
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4931437", "Rewarded_Android");
+        IIAPService iapService = new IAPGameService();
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(login);
         ServiceLocator.RegisterService(analyticsService);
         ServiceLocator.RegisterService(adsService);
+        ServiceLocator.RegisterService(iapService);
 
         await servicesInitializer.Initialize();
         await login.Initialize();
         await remoteConfig.Initialize();
         await analyticsService.Initialize();
-        bool adsInitialized = await adsService.Initialize(Application.isEditor);
+        await adsService.Initialize(Application.isEditor);
+        await iapService.Initialize(new Dictionary<string, string>
+        {
+            ["test1"] = "com.enygmagames.test1"
+        });
         gameConfig.Initialize(remoteConfig);
 
         SceneManager.LoadScene("Master Scene");

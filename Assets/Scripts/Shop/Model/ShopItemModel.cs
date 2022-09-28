@@ -11,4 +11,5 @@ public class ShopItemModel
     public InventoryItem Cost;
     public InventoryItem Reward;
     public bool IsObtainedWithAd;
+    public bool IsObtainedWithIAP;
 }

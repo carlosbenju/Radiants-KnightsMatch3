@@ -15,7 +15,7 @@ public class ShopController
 
     public void PurchaseItem(ShopItemModel model)
     {
-        if (model.IsObtainedWithAd)
+        if (model.IsObtainedWithAd || model.IsObtainedWithIAP)
         {
             Inventory.Add(model.Reward);
             Inventory.Save();
