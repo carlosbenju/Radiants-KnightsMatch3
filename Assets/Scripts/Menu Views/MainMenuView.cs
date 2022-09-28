@@ -77,9 +77,9 @@ public class MainMenuView : MonoBehaviour
 
     void UpdatePlayerData()
     {
-        _playerName.text = _player.playerData.Name;
-        _playerImage.sprite = _imageSprites.Find(sprite => sprite.name == _player.playerData.ProfileImage);
-        _currentLevelText.text = _player.playerData.CurrentLevel.ToString();
+        _playerName.text = _player.Data.Name;
+        _playerImage.sprite = _imageSprites.Find(sprite => sprite.name == _player.Data.ProfileImage);
+        _currentLevelText.text = _player.Data.CurrentLevel.ToString();
     }
 
     void UpdateResource(string resource)

@@ -30,9 +30,9 @@ public class LevelSelectionView : MonoBehaviour
         {
             LevelModel level = new LevelModel(levelSO);
 
-            if (_player.playerData.CompletedLevels != null)
+            if (_player.Data.CompletedLevels != null)
             {
-                foreach (LevelModel levelModel in _player.playerData.CompletedLevels)
+                foreach (LevelModel levelModel in _player.Data.CompletedLevels)
                 {
                     if (levelModel.LevelNumber == levelSO.Level)
                     {
@@ -53,8 +53,8 @@ public class LevelSelectionView : MonoBehaviour
 
     public void SelectLevel(int level)
     {
-        _player.playerData.CurrentLevel = level;
-        Debug.Log("Current level: " + _player.playerData.CurrentLevel);
+        _player.Data.CurrentLevel = level;
+        Debug.Log("Current level: " + _player.Data.CurrentLevel);
         Close();
     }
 

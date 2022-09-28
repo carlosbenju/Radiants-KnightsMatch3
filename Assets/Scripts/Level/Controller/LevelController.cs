@@ -28,14 +28,14 @@ public class LevelController
     public void InitializeLevel()
     {
         Hero = new HeroModel();
-        Hero.InitializeById(_player.playerData.CurrentHeroId);
+        Hero.InitializeById(_player.Data.CurrentHeroId);
 
         _waveIndex = 0;
         CurrentEnemy = new EnemyModel(Level.Waves[_waveIndex]);
 
-        if (_player.playerData.CompletedLevels.Count > 0)
+        if (_player.Data.CompletedLevels.Count > 0)
         {
-            foreach (LevelModel level in _player.playerData.CompletedLevels)
+            foreach (LevelModel level in _player.Data.CompletedLevels)
             {
                 isFirstCompletion = Level.LevelNumber == level.LevelNumber ? false : true;
             }
@@ -128,13 +128,13 @@ public class LevelController
         {
             foreach (InventoryItem reward in Level.Rewards)
             {
-                _player.playerData.Inventory.Add(reward);
-                _player.playerData.Inventory.Save();
+                _player.Data.Inventory.Add(reward);
+                _player.Data.Inventory.Save();
             }
 
             Level.IsCompleted = true;
-            _player.playerData.CompletedLevels.Add(Level);
-            _player.playerData.CurrentLevel++;
+            _player.Data.CompletedLevels.Add(Level);
+            _player.Data.CurrentLevel++;
             _player.Save();
         }
 

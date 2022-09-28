@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class PlayerModel
 {
-    public PlayerData playerData;
+    public SaveData Data;
 
     GameConfigService _gameConfigService;
+    GameProgressionService _gameProgressionService;
 
     public void Initialize()
     {
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
         Load();
     }
 
     public void CreateNewUser(string name)
     {
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
 
         Inventory inventory = new Inventory();
         List<InventoryItem> InitialInventory = new List<InventoryItem>();
@@ -28,10 +31,16 @@ public class PlayerModel
 
         inventory.CreateInventory(InitialInventory);
 
-        playerData = new PlayerData { ProfileImage = _gameConfigService.InitialProfileImage, Name = name, CurrentLevel = 1, Inventory = inventory, CurrentHeroId = _gameConfigService.InitialHeroId };
+        Data = new SaveData { ProfileImage = _gameConfigService.InitialProfileImage, Name = name, CurrentLevel = 1, Inventory = inventory, CurrentHeroId = _gameConfigService.InitialHeroId };
     }
 
-    void Load() => playerData = SaveGameManager.CurrentSaveData.PlayerData;
+    public void Load()
+    {
+        Data = _gameProgressionService.Data;
+    }
 
-    public void Save() => SaveGameManager.CurrentSaveData.PlayerData = playerData;
+    public void Save()
+    {
+        _gameProgressionService.Data = Data;
+    }
 }

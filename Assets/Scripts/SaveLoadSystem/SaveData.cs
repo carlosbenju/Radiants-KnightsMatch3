@@ -5,12 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public PlayerData PlayerData;
-}
-
-[System.Serializable]
-public struct PlayerData
-{
     public string ProfileImage;
     public string Name;
     public int CurrentLevel;

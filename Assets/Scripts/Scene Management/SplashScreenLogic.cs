@@ -41,15 +41,19 @@ public class SplashScreenLogic : MonoBehaviour
 
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
+        GameProgressionService progressionService = new GameProgressionService();
         LoginGameService login = new LoginGameService();
         GameConfigService gameConfig = new GameConfigService();
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4931437", "Rewarded_Android");
         IIAPService iapService = new IAPGameService();
+        IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
+
 
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(remoteConfig);
+        ServiceLocator.RegisterService(progressionService);
         ServiceLocator.RegisterService(login);
         ServiceLocator.RegisterService(analyticsService);
         ServiceLocator.RegisterService(adsService);
@@ -64,7 +68,9 @@ public class SplashScreenLogic : MonoBehaviour
         {
             ["test1"] = "com.enygmagames.test1"
         });
+        await gameProgressionProvider.Initialize();
         gameConfig.Initialize(remoteConfig);
+        progressionService.Initialize(gameConfig, gameProgressionProvider);
 
         SceneManager.LoadScene("Master Scene");
     }

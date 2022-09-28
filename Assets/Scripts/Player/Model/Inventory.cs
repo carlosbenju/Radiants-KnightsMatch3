@@ -9,6 +9,13 @@ public class Inventory
 
     public event Action<string> OnResourceModified = resource => { };
 
+    GameProgressionService _gameProgressionService;
+
+    public Inventory()
+    {
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
+    }
+
     public void CreateInventory(List<InventoryItem> items)
     {
         Items = items;
@@ -60,7 +67,13 @@ public class Inventory
         return Items;
     }
 
-    public void Load() => Items = SaveGameManager.CurrentSaveData.PlayerData.Inventory.GetInventoryItems();
+    public void Load()
+    {
+        Items = _gameProgressionService.Data.Inventory.GetInventoryItems();
+    }
 
-    public void Save() => SaveGameManager.CurrentSaveData.PlayerData.Inventory = this;
+    public void Save()
+    {
+        _gameProgressionService.Data.Inventory = this;
+    }
 }

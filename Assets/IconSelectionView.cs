@@ -27,7 +27,7 @@ public class IconSelectionView : MonoBehaviour
         _currentIconSelectionHandle = handle;
 
         List<string> userIcons = new List<string>();
-        foreach (InventoryItem i in _player.playerData.Inventory.GetInventoryItems())
+        foreach (InventoryItem i in _player.Data.Inventory.GetInventoryItems())
         {
             if (i.Type.Contains("icon"))
             {

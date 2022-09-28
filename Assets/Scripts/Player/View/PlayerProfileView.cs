@@ -42,7 +42,7 @@ public class PlayerProfileView : MonoBehaviour
         _currentProfileViewHandle = handler;
 
         HeroModel currentHero = new HeroModel();
-        currentHero.InitializeById(_playerModel.playerData.CurrentHeroId);
+        currentHero.InitializeById(_playerModel.Data.CurrentHeroId);
 
         SetPlayerData();
         SetHeroData(currentHero);
@@ -50,8 +50,8 @@ public class PlayerProfileView : MonoBehaviour
 
     private void SetPlayerData()
     {
-        _playerProfileImage.sprite = _profileImages.Find(sprite => sprite.name == _playerModel.playerData.ProfileImage);
-        _playerNameText.text = _playerModel.playerData.Name;
+        _playerProfileImage.sprite = _profileImages.Find(sprite => sprite.name == _playerModel.Data.ProfileImage);
+        _playerNameText.text = _playerModel.Data.Name;
         _goldAmount.text = _inventory.GetAmount("Gold").ToString();
         _diamondAmount.text = _inventory.GetAmount("Diamond").ToString();
     }
@@ -92,7 +92,7 @@ public class PlayerProfileView : MonoBehaviour
 
     void ChangePlayerIcon(string newIconName)
     {
-        _playerModel.playerData.ProfileImage = newIconName;
+        _playerModel.Data.ProfileImage = newIconName;
         _playerModel.Save();
 
         SetPlayerData();

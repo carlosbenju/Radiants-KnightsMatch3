@@ -17,9 +17,14 @@ public class MasterSceneManager : MonoBehaviour
 
     public Action OnSceneCompleteLoading = delegate { };
 
+    GameProgressionService _gameProgressionService;
+
     void Start()
     {
-        if (!SaveGameManager.LoadGame())
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
+
+
+        if (_gameProgressionService.Load() == null)
         {
             LoadScene(_firstLoginScene);
         }
@@ -33,7 +38,7 @@ public class MasterSceneManager : MonoBehaviour
     {
         if (_currentScene.name != _firstLoginScene)
         {
-            SaveGameManager.SaveGame();
+            _gameProgressionService.Save();
         }
     }
 
@@ -54,7 +59,7 @@ public class MasterSceneManager : MonoBehaviour
 
         if (sceneToLoad != _firstLoginScene)
         {
-            SaveGameManager.SaveGame();
+            _gameProgressionService.Save();
         }
 
         while (_canvasGroup.alpha < 1f)
@@ -97,7 +102,7 @@ public class MasterSceneManager : MonoBehaviour
 
         if (sceneToLoad != _firstLoginScene)
         {
-            SaveGameManager.LoadGame();
+            _gameProgressionService.Load();
         }
 
         yield return new WaitForSeconds(1f);
