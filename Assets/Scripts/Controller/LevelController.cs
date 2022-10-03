@@ -135,6 +135,7 @@ public class LevelController
             Level.IsCompleted = true;
             _gameProgressionService.Data.CompletedLevels.Add(Level);
             _gameProgressionService.Data.CurrentLevel++;
+            _gameProgressionService.Save();
         }
 
         OnGameWon?.Invoke();

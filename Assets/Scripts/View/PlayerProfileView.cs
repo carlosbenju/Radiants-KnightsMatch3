@@ -94,6 +94,7 @@ public class PlayerProfileView : MonoBehaviour
     void ChangePlayerIcon(string newIconName)
     {
         _gameProgressionService.Data.ProfileImage = newIconName;
+        _gameProgressionService.Save();
 
         SetPlayerData();
     }

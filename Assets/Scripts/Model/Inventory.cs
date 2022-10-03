@@ -75,5 +75,6 @@ public class Inventory
     public void Save()
     {
         _gameProgressionService.Data.Inventory = this;
+        _gameProgressionService.Save();
     }
 }
