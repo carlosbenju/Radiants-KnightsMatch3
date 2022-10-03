@@ -10,7 +10,6 @@ public class LevelSceneInitializer : MonoBehaviour
     LevelController _levelController = null;
     BoardController _boardController;
     Inventory _inventory;
-    PlayerModel _player;
 
     MasterSceneManager _masterSceneManager = null;
 
@@ -28,9 +27,7 @@ public class LevelSceneInitializer : MonoBehaviour
     void Initialize()
     {
         LevelModel level = new LevelModel(_level);
-        _player = new PlayerModel();
-        _player.Initialize();
-        _levelController = new LevelController(level, _player);
+        _levelController = new LevelController(level);
 
         _boardController = new BoardController(new BoardModel(7, 5));
 

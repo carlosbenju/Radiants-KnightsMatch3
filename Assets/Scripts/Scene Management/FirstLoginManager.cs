@@ -9,17 +9,18 @@ public class FirstLoginManager : MonoBehaviour
     [SerializeField] string sceneToLoad;
     MasterSceneManager masterSceneManager;
 
+    GameProgressionService _progressionService;
+
     private void Awake()
     {
         masterSceneManager = FindObjectOfType<MasterSceneManager>();
+
+        _progressionService = ServiceLocator.GetService<GameProgressionService>();
     }
 
     public void SelectName()
     {
-        PlayerModel playerModel = new PlayerModel();
-
-        playerModel.CreateNewUser(playerNameInput.text);
-        playerModel.Save();
+        _progressionService.CreateNewUser(playerNameInput.text);
 
         masterSceneManager.LoadScene(sceneToLoad);
     }

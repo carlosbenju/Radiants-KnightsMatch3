@@ -8,7 +8,6 @@ public class MainMenuSceneInitializer : MonoBehaviour
     MainMenuView _mainMenuView = null;
 
     Inventory _inventory = null;
-    PlayerModel _player = null;
 
     MasterSceneManager _masterSceneManager = null;
 
@@ -25,12 +24,9 @@ public class MainMenuSceneInitializer : MonoBehaviour
 
     void Initialize()
     {
-        _player = new PlayerModel();
-        _player.Initialize();
-
         _inventory = new Inventory();
         _inventory.Load();
 
-        _mainMenuView.Initialize(_inventory, _player);
+        _mainMenuView.Initialize(_inventory);
     }
 }

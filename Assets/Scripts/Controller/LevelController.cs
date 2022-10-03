@@ -10,8 +10,6 @@ public class LevelController
     public HeroModel Hero;
     public Action OnWaveChanged = delegate { };
     public Action OnTurnPassed = delegate { };
-    
-    [SerializeField] PlayerModel _player;
 
     int _waveIndex;
     bool isFirstCompletion;
@@ -19,23 +17,25 @@ public class LevelController
     public Action OnGameWon;
     public Action OnGameLost;
 
-    public LevelController(LevelModel level, PlayerModel player)
+    GameProgressionService _gameProgressionService;
+
+    public LevelController(LevelModel level)
     {
         Level = level;
-        _player = player;
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
     }
 
     public void InitializeLevel()
     {
         Hero = new HeroModel();
-        Hero.InitializeById(_player.Data.CurrentHeroId);
+        Hero.InitializeById(_gameProgressionService.Data.CurrentHeroId);
 
         _waveIndex = 0;
         CurrentEnemy = new EnemyModel(Level.Waves[_waveIndex]);
 
-        if (_player.Data.CompletedLevels.Count > 0)
+        if (_gameProgressionService.Data.CompletedLevels.Count > 0)
         {
-            foreach (LevelModel level in _player.Data.CompletedLevels)
+            foreach (LevelModel level in _gameProgressionService.Data.CompletedLevels)
             {
                 isFirstCompletion = Level.LevelNumber == level.LevelNumber ? false : true;
             }
@@ -128,27 +128,14 @@ public class LevelController
         {
             foreach (InventoryItem reward in Level.Rewards)
             {
-                _player.Data.Inventory.Add(reward);
-                _player.Data.Inventory.Save();
+                _gameProgressionService.Data.Inventory.Add(reward);
+                _gameProgressionService.Data.Inventory.Save();
             }
 
             Level.IsCompleted = true;
-            _player.Data.CompletedLevels.Add(Level);
-            _player.Data.CurrentLevel++;
-            _player.Save();
+            _gameProgressionService.Data.CompletedLevels.Add(Level);
+            _gameProgressionService.Data.CurrentLevel++;
         }
-
-        //if (_player.playerData.CurrentLevel == Level.LevelNumber)
-        //{
-        //    foreach (InventoryItem reward in Level.Rewards)
-        //    {
-        //        _player.playerData.Inventory.Add(reward);
-        //        _player.playerData.Inventory.Save();
-        //    }
-
-        //    _player.playerData.CurrentLevel++;
-        //    _player.Save();
-        //}
 
         OnGameWon?.Invoke();
         OnTurnPassed?.Invoke();

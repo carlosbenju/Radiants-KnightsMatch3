@@ -23,12 +23,13 @@ public class MainMenuView : MonoBehaviour
     [SerializeField] List<Sprite> _imageSprites = null;
 
     Inventory _inventory;
-    PlayerModel _player;
 
-    public void Initialize(Inventory inventory, PlayerModel player)
+    GameProgressionService _gameProgressionService;
+
+    public void Initialize(Inventory inventory)
     {
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
         _inventory = inventory;
-        _player = player;
 
         _inventory.OnResourceModified += UpdateResource;
 
@@ -48,7 +49,7 @@ public class MainMenuView : MonoBehaviour
             if (handle.Result != null)
             {
                 PlayerProfileView popup = handle.Result.GetComponent<PlayerProfileView>();
-                Instantiate(popup, _parent).Initialize(_player, _inventory, _imageSprites, UpdatePlayerData, handle);
+                Instantiate(popup, _parent).Initialize(_inventory, _imageSprites, UpdatePlayerData, handle);
             }
         };
     }
@@ -60,7 +61,7 @@ public class MainMenuView : MonoBehaviour
             if (handle.Result != null)
             {
                 LevelSelectionView popup = handle.Result.GetComponent<LevelSelectionView>();
-                Instantiate(popup, _parent).Initialize(_player, UpdatePlayerData,handle);
+                Instantiate(popup, _parent).Initialize(UpdatePlayerData,handle);
             }
         };
     }
@@ -77,9 +78,9 @@ public class MainMenuView : MonoBehaviour
 
     void UpdatePlayerData()
     {
-        _playerName.text = _player.Data.Name;
-        _playerImage.sprite = _imageSprites.Find(sprite => sprite.name == _player.Data.ProfileImage);
-        _currentLevelText.text = _player.Data.CurrentLevel.ToString();
+        _playerName.text = _gameProgressionService.Data.Name;
+        _playerImage.sprite = _imageSprites.Find(sprite => sprite.name == _gameProgressionService.Data.ProfileImage);
+        _currentLevelText.text = _gameProgressionService.Data.CurrentLevel.ToString();
     }
 
     void UpdateResource(string resource)

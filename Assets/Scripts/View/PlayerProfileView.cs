@@ -26,23 +26,24 @@ public class PlayerProfileView : MonoBehaviour
     [SerializeField] TextMeshProUGUI _currentHeroHealth;
     [SerializeField] TextMeshProUGUI _currentHeroStrength;
 
-    PlayerModel _playerModel;
     Inventory _inventory;
 
     Action _onPopupClosed;
 
     AsyncOperationHandle _currentProfileViewHandle;
 
-    public void Initialize(PlayerModel playerModel, Inventory inventory, List<Sprite> profileImages, Action onPopupClosed, AsyncOperationHandle handler)
+    GameProgressionService _gameProgressionService;
+
+    public void Initialize(Inventory inventory, List<Sprite> profileImages, Action onPopupClosed, AsyncOperationHandle handler)
     {
-        _playerModel = playerModel;
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
         _inventory = inventory;
         _profileImages = profileImages;
         _onPopupClosed = onPopupClosed;
         _currentProfileViewHandle = handler;
 
         HeroModel currentHero = new HeroModel();
-        currentHero.InitializeById(_playerModel.Data.CurrentHeroId);
+        currentHero.InitializeById(_gameProgressionService.Data.CurrentHeroId);
 
         SetPlayerData();
         SetHeroData(currentHero);
@@ -50,8 +51,8 @@ public class PlayerProfileView : MonoBehaviour
 
     private void SetPlayerData()
     {
-        _playerProfileImage.sprite = _profileImages.Find(sprite => sprite.name == _playerModel.Data.ProfileImage);
-        _playerNameText.text = _playerModel.Data.Name;
+        _playerProfileImage.sprite = _profileImages.Find(sprite => sprite.name == _gameProgressionService.Data.ProfileImage);
+        _playerNameText.text = _gameProgressionService.Data.Name;
         _goldAmount.text = _inventory.GetAmount("Gold").ToString();
         _diamondAmount.text = _inventory.GetAmount("Diamond").ToString();
     }
@@ -85,15 +86,14 @@ public class PlayerProfileView : MonoBehaviour
             if (handle.Result != null)
             {
                 IconSelectionView popup = handle.Result.GetComponent<IconSelectionView>();
-                Instantiate(popup, _parent).Initialize(_playerModel, _profileImages, ChangePlayerIcon, handle);
+                Instantiate(popup, _parent).Initialize( _profileImages, ChangePlayerIcon, handle);
             }
         };
     }
 
     void ChangePlayerIcon(string newIconName)
     {
-        _playerModel.Data.ProfileImage = newIconName;
-        _playerModel.Save();
+        _gameProgressionService.Data.ProfileImage = newIconName;
 
         SetPlayerData();
     }

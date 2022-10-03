@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R58R41XSYSB",
     "m_SelectedPackage": {
-        "deviceId": "R58R41XSYSB",
-        "name": "com.EnygmaGames.RadiantKnightsMatch3",
-        "processId": 11764,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,24 @@
             "deviceId": "R58R41XSYSB",
             "name": "com.EnygmaGames.RadiantKnightsMatch3",
             "processId": 11764,
+            "exited": false
+        },
+        {
+            "deviceId": "R58R41XSYSB",
+            "name": "com.EnygmaGames.RadiantKnightsMatch3",
+            "processId": 19971,
+            "exited": false
+        },
+        {
+            "deviceId": "R58R41XSYSB",
+            "name": "com.EnygmaGames.RadiantKnightsMatch3",
+            "processId": 1574,
+            "exited": false
+        },
+        {
+            "deviceId": "R58R41XSYSB",
+            "name": "com.EnygmaGames.RadiantKnightsMatch3",
+            "processId": 9770,
             "exited": false
         }
     ],

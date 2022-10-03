@@ -12,22 +12,23 @@ public class IconSelectionView : MonoBehaviour
     [SerializeField] Transform _parent;
 
     List<Sprite> _possibleIcons;
-    
-    PlayerModel _player;
 
     Action<string> _onImageSelected = delegate (string imageName) { };
 
     AsyncOperationHandle _currentIconSelectionHandle;
 
-    public void Initialize(PlayerModel player, List<Sprite> possibleIcons, Action<string> onImageIconSelected, AsyncOperationHandle handle)
+    GameProgressionService _gameProgressionService;
+
+    public void Initialize(List<Sprite> possibleIcons, Action<string> onImageIconSelected, AsyncOperationHandle handle)
     {
-        _player = player;
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
         _possibleIcons = possibleIcons;
         _onImageSelected = onImageIconSelected;
         _currentIconSelectionHandle = handle;
-
         List<string> userIcons = new List<string>();
-        foreach (InventoryItem i in _player.Data.Inventory.GetInventoryItems())
+
+        List<InventoryItem> inventoryItems = _gameProgressionService.Data.Inventory.GetInventoryItems();
+        foreach (InventoryItem i in inventoryItems)
         {
             if (i.Type.Contains("icon"))
             {

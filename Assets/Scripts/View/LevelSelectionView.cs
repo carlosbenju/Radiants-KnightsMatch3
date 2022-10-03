@@ -10,16 +10,17 @@ public class LevelSelectionView : MonoBehaviour
     [SerializeField] GameObject[] _levelSpawns;
 
     LevelSO[] _levelSOs;
-    PlayerModel _player;
     List<LevelModel> _levels;
 
     AsyncOperationHandle _levelSelectionPopupHandle;
 
     Action _onPopupClosed;
 
-    public void Initialize(PlayerModel playerModel, Action onPopupClosed, AsyncOperationHandle handle)
+    GameProgressionService _gameProgressionService;
+
+    public void Initialize(Action onPopupClosed, AsyncOperationHandle handle)
     {
-        _player = playerModel;
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
         _levelSOs = LevelsDatabase.Levels;
         _levels = new List<LevelModel>();
         _onPopupClosed = onPopupClosed;
@@ -30,9 +31,9 @@ public class LevelSelectionView : MonoBehaviour
         {
             LevelModel level = new LevelModel(levelSO);
 
-            if (_player.Data.CompletedLevels != null)
+            if (_gameProgressionService.Data.CompletedLevels != null)
             {
-                foreach (LevelModel levelModel in _player.Data.CompletedLevels)
+                foreach (LevelModel levelModel in _gameProgressionService.Data.CompletedLevels)
                 {
                     if (levelModel.LevelNumber == levelSO.Level)
                     {
@@ -53,8 +54,7 @@ public class LevelSelectionView : MonoBehaviour
 
     public void SelectLevel(int level)
     {
-        _player.Data.CurrentLevel = level;
-        Debug.Log("Current level: " + _player.Data.CurrentLevel);
+        _gameProgressionService.Data.CurrentLevel = level;
         Close();
     }
 

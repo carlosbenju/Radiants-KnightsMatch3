@@ -11,6 +11,29 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
 {
     string _remoteData;
 
+    public RemoteGameProgressionProvider()
+    {
+        Application.focusChanged += SaveToCloud;
+    }
+
+    public async void SaveToCloud(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            try
+            {
+                await CloudSaveService.Instance.Data
+                    .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            Debug.Log("Loaded " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
+        }
+    }
+
     public async Task<bool> Initialize()
     {
         try
@@ -36,21 +59,5 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     public void Save(string data)
     {
         _remoteData = data;
-        SaveToCloud();
-    }
-
-    public async void SaveToCloud()
-    {
-        try
-        {
-            await CloudSaveService.Instance.Data
-                .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
-        }
-        catch (Exception e)
-        {
-            Debug.LogException(e);
-        }
-
-        Debug.Log("Loaded " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
     }
 }
