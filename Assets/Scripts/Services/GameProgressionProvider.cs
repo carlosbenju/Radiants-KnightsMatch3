@@ -1,8 +1,5 @@
 using Game.Services;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class GameProgressionProvider : IGameProgressionProvider
 {
@@ -36,5 +33,6 @@ public class GameProgressionProvider : IGameProgressionProvider
     public void Save(string data)
     {
         _localData.Save(data);
+        _remoteData.Save(data);
     }
 }

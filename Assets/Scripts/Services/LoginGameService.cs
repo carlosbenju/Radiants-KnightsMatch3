@@ -15,6 +15,11 @@ namespace Game.Services
             }
         }
 
+        public string GetUserId()
+        {
+            return AuthenticationService.Instance.PlayerId;
+        }
+
         public void Clear()
         {
         }

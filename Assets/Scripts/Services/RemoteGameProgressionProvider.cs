@@ -11,40 +11,21 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
 {
     string _remoteData;
 
-    public RemoteGameProgressionProvider()
-    {
-        Application.focusChanged += OnApplicationFocusChanged;
-    }
-
-    async void OnApplicationFocusChanged(bool hasFocus)
-    {
-        if (!hasFocus)
-        {
-            try
-            {
-                await CloudSaveService.Instance.Data
-                    .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
-            } 
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-
-            Debug.Log("Loaded " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
-        }
-    }
-
     public async Task<bool> Initialize()
     {
-        Dictionary<string, string> data = await CloudSaveService.Instance.Data.LoadAsync();
-        foreach (var keyValuePair in data)
+        try
         {
-            Debug.Log("Key: " + keyValuePair.Key + " Value: " + keyValuePair.Value);
+            Dictionary<string, string> data = await CloudSaveService.Instance.Data.LoadAsync();
+
+            data.TryGetValue("data", out _remoteData);
+            Debug.Log("Loaded: " + _remoteData + " for user: " + AuthenticationService.Instance.PlayerId);
+            return true;
+        } catch (Exception e)
+        {
+            Debug.LogError(e);
         }
 
-        data.TryGetValue("data", out _remoteData);
-        Debug.Log("Loaded: " + _remoteData + " for user: " + AuthenticationService.Instance.PlayerId);
-        return true;
+        return false;
     }
 
     public string Load()
@@ -55,5 +36,21 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     public void Save(string data)
     {
         _remoteData = data;
+        SaveToCloud();
+    }
+
+    public async void SaveToCloud()
+    {
+        try
+        {
+            await CloudSaveService.Instance.Data
+                .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+
+        Debug.Log("Loaded " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
     }
 }

@@ -23,7 +23,6 @@ public class MasterSceneManager : MonoBehaviour
     {
         _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
 
-
         if (_gameProgressionService.Load() == null)
         {
             LoadScene(_firstLoginScene);

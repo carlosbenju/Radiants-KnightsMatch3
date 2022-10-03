@@ -19,7 +19,7 @@ public class SplashScreenLogic : MonoBehaviour
     void Start()
     {
         _gameVersionText.text = $"Version: {Application.version}";
-        
+
         _cancellationTaskSource = new TaskCompletionSource<bool>();
 
         LoadServicesCancellable().ContinueWith(task => Debug.Log(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
@@ -41,8 +41,8 @@ public class SplashScreenLogic : MonoBehaviour
 
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
+        LoginGameService loginService = new LoginGameService();
         GameProgressionService progressionService = new GameProgressionService();
-        LoginGameService login = new LoginGameService();
         GameConfigService gameConfig = new GameConfigService();
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
@@ -54,13 +54,13 @@ public class SplashScreenLogic : MonoBehaviour
         ServiceLocator.RegisterService(gameConfig);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(progressionService);
-        ServiceLocator.RegisterService(login);
+        ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(analyticsService);
         ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(iapService);
 
         await servicesInitializer.Initialize();
-        await login.Initialize();
+        await loginService.Initialize();
         await remoteConfig.Initialize();
         await analyticsService.Initialize();
         await adsService.Initialize(Application.isEditor);
