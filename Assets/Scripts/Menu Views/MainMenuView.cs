@@ -13,8 +13,6 @@ public class MainMenuView : MonoBehaviour
 
     [SerializeField] TMP_Text _goldText;
     [SerializeField] TMP_Text _diamondText;
-    [SerializeField] TMP_Text _bombBoosterText;
-    [SerializeField] TMP_Text _colorBombBoosterText;
     [SerializeField] TMP_Text _currentLevelText;
     [SerializeField] TMP_Text _playerName = null;
 
@@ -44,6 +42,8 @@ public class MainMenuView : MonoBehaviour
 
     public void OpenPlayerProfilePopup()
     {
+        Debug.Log("OPPP::Clicked");
+
         Addressables.LoadAssetAsync<GameObject>("player_info_popup_v2").Completed += handle =>
         {
             if (handle.Result != null)
@@ -70,8 +70,6 @@ public class MainMenuView : MonoBehaviour
     {
         UpdateResource("Gold");
         UpdateResource("Diamond");
-        UpdateResource("Bomb Booster");
-        UpdateResource("Color Bomb Booster");
 
         UpdatePlayerData();
     }
@@ -92,12 +90,6 @@ public class MainMenuView : MonoBehaviour
                 break;
             case "Diamond":
                 _diamondText.text = _inventory.GetAmount("Diamond").ToString();
-                break;
-            case "Bomb Booster":
-                _bombBoosterText.text = _inventory.GetAmount("Bomb Booster").ToString();
-                break;
-            case "Color Bomb Booster":
-                _colorBombBoosterText.text = _inventory.GetAmount("Color Bomb Booster").ToString();
                 break;
         }
     }

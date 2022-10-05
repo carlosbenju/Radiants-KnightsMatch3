@@ -47,10 +47,10 @@ public class ShopView : MonoBehaviour
             Instantiate(_shopItemPrefab, _itemsParent.transform).SetData(shopItemModel, inventory, OnPurchaseItem);
         }
 
-        foreach (ShopItemModel shopItemModel in _controller.Model.PremiumItems)
-        {
-            Instantiate(_shopItemPrefab, _premiumItemsParent.transform).SetData(shopItemModel, inventory, OnPurchaseItem);
-        }
+        //foreach (ShopItemModel shopItemModel in _controller.Model.PremiumItems)
+        //{
+        //    Instantiate(_shopItemPrefab, _premiumItemsParent.transform).SetData(shopItemModel, inventory, OnPurchaseItem);
+        //}
 
         UpdateMenuData();
     }
@@ -88,7 +88,7 @@ public class ShopView : MonoBehaviour
     {
         if (model.IsObtainedWithAd)
         {
-            if (await ServiceLocator.GetService<AdsGameService>().ShowAd())
+            if (await _adsService.ShowAd())
             {
                 _controller.PurchaseItem(model);
                 _transactionsDone++;

@@ -14,12 +14,12 @@ public class NavigationButtonsManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        masterSceneManager.LoadScene("Main Menu");
+        masterSceneManager.LoadScene("Main Menu Scene");
     }
 
     public void GoToStore()
     {
-        masterSceneManager.LoadScene("StoreScene");
+        masterSceneManager.LoadScene("ShopScene");
     }
 
     public void GoToLevel(TextMeshProUGUI text)
