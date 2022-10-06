@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameInput: {fileID: 114443739}
-  sceneToLoad: Main Menu
+  sceneToLoad: Main Menu Scene
 --- !u!4 &1886818557
 Transform:
   m_ObjectHideFlags: 0
