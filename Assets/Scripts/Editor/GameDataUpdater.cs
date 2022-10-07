@@ -25,4 +25,25 @@ public static class GameDataUpdater
             Debug.Log("Shop model updated with text: " + request.downloadHandler.text);
         };
     }
+
+    public static void UpdateGameData()
+    {
+        string url =
+    "https://script.google.com/macros/s/AKfycbw9N3fJ8ffk4we8Vv8P1poDh11bVxCimPyJT2oLNzvQlXFayajRI64yMZl9w8RqiA8veQ/exec";
+
+        UnityWebRequest request = new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null);
+        request.SendWebRequest().completed += asyncOp =>
+        {
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.Log(request.error);
+                return;
+            }
+
+            System.IO.File.WriteAllText(Application.dataPath + "/Resources/GameConfig.json",
+                request.downloadHandler.text);
+
+            Debug.Log("Shop model updated with text: " + request.downloadHandler.text);
+        };
+    }
 }

@@ -14,12 +14,12 @@ namespace Game.Services
 
         public void Initialize(RemoteConfigGameService dataProvider)
         {
-            InitialGold = dataProvider.Get("InitialGold", 500);
-            InitialDiamonds = dataProvider.Get("InitialDiamonds", 30);
-            InitialProfileImage = dataProvider.Get("InitialProfileImage", "galaxy-icon");
-            InitialHeroId = dataProvider.Get("InitialHeroId", 1);
-            InitialBombBoosters = dataProvider.Get("InitialBombBoosters", 1);
-            InitialColorBombBoosters = dataProvider.Get("InitialColorBombBoosters", 1);
+            InitialGold = dataProvider.GetInt("InitialGold", 500);
+            InitialDiamonds = dataProvider.GetInt("InitialDiamonds", 30);
+            InitialProfileImage = dataProvider.GetString("InitialProfileImage", "galaxy-icon");
+            InitialHeroId = dataProvider.GetInt("InitialHeroId", 1);
+            InitialBombBoosters = dataProvider.GetInt("InitialBombBoosters", 1);
+            InitialColorBombBoosters = dataProvider.GetInt("InitialColorBombBoosters", 1);
         }
 
 

@@ -41,17 +41,17 @@ namespace Game.Services
             }
         }
 
-        public string Get(string key, string defaultValue = "")
+        public string GetString(string key, string defaultValue = "")
         {
             return _config?.GetString(key, defaultValue) ?? defaultValue;
         }
 
-        public int Get(string key, int defaultValue = 0)
+        public int GetInt(string key, int defaultValue = 0)
         {
             return _config?.GetInt(key, defaultValue) ?? defaultValue;
         }
 
-        public float Get(string key, float defaultValue = 0)
+        public float GetFloat(string key, float defaultValue = 0)
         {
             return _config?.GetFloat(key, defaultValue) ?? defaultValue;
         }
