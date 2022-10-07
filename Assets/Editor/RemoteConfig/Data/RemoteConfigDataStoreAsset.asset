@@ -12,40 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"43b544d9-7c96-4086-a480-db8d1c23f24c\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"74603ffe-72fe-464f-812c-459792aab5ca\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"f295744a-28e0-4f23-9658-d452ca9b38cc\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"e7ecde0a-4284-4bf5-9dd5-1619fd7024de\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4929478f-ad62-439e-a50a-b0004f76b033\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4dd78a6e-898f-48f1-9c58-e143018719cb\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"906e59b7-811c-4cd5-9730-4394de15ab76\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"584fec65-041d-4e6a-9485-72424a926932\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"e8b066f7-c3d3-4723-812a-e5308aac4fda\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"08924a04-f6a6-48ed-9e4a-866cb45d9afc\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"90984785-686b-464c-97c0-da58eec5453e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"58820892-b8c1-4405-8642-760e58c4a853\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
-    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"43b544d9-7c96-4086-a480-db8d1c23f24c\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"01a7e357-f81b-40f8-a16a-73f3ef2b58d1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ResourceInventory_Config\",\r\n     
+    \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
+    \"Resources\": [\r\n          {\r\n            \"Id\": \"gold\",\r\n           
+    \"StartAmount\": \"500.00\",\r\n            \"AssetName\": \"Gold\"\r\n         
+    },\r\n          {\r\n            \"Id\": \"diamond\",\r\n            \"StartAmount\":
+    \"50.00\",\r\n            \"AssetName\": \"Diamond\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"74603ffe-72fe-464f-812c-459792aab5ca\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"f295744a-28e0-4f23-9658-d452ca9b38cc\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"e7ecde0a-4284-4bf5-9dd5-1619fd7024de\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4929478f-ad62-439e-a50a-b0004f76b033\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4dd78a6e-898f-48f1-9c58-e143018719cb\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"906e59b7-811c-4cd5-9730-4394de15ab76\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"584fec65-041d-4e6a-9485-72424a926932\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"e8b066f7-c3d3-4723-812a-e5308aac4fda\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"08924a04-f6a6-48ed-9e4a-866cb45d9afc\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"90984785-686b-464c-97c0-da58eec5453e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"58820892-b8c1-4405-8642-760e58c4a853\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
-    }\r\n  }\r\n]"
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"01a7e357-f81b-40f8-a16a-73f3ef2b58d1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ResourceInventory_Config\",\r\n     
+    \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
+    \"Resources\": [\r\n          {\r\n            \"Id\": \"gold\",\r\n           
+    \"StartAmount\": \"500.00\",\r\n            \"AssetName\": \"Gold\"\r\n         
+    },\r\n          {\r\n            \"Id\": \"diamond\",\r\n            \"StartAmount\":
+    \"50.00\",\r\n            \"AssetName\": \"Diamond\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"2924ef6a-0719-42c5-97d9-7a644b30f3e2\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"5c13e68f-2d44-45cb-8af7-7f13643f32b0\",\r\n   
     \"isDefault\": false,\r\n    \"createdAt\": \"2022-09-07T17:52:12Z\",\r\n   

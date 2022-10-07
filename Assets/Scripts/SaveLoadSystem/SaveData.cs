@@ -9,6 +9,7 @@ public class SaveData
     public string Name;
     public int CurrentLevel;
     public Inventory Inventory;
+    public List<InGameResource> ResourcesInventory;
     public int CurrentHeroId;
     public List<LevelModel> CompletedLevels;
 }

@@ -46,6 +46,11 @@ namespace Game.Services
             return _config?.GetString(key, defaultValue) ?? defaultValue;
         }
 
+        public string GetJson(string key, string defaultValue = "")
+        {
+            return _config?.GetJson(key, defaultValue) ?? defaultValue;
+        }
+
         public int GetInt(string key, int defaultValue = 0)
         {
             return _config?.GetInt(key, defaultValue) ?? defaultValue;

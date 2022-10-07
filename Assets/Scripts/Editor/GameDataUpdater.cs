@@ -4,11 +4,12 @@ using UnityEngine.Networking;
 
 public static class GameDataUpdater
 {
+    const string scriptUrl = "https://script.google.com/macros/s/AKfycbxOQCWSwVOilG1REVdiMd9uzv-BE9mVe1MqU2xjPqyWYDmKx8zI0veW1idDLlfDtQE/exec";
+
     [MenuItem("Game/Update Shop Data")]
     public static void UpdateShopModel()
     {
-        string url = 
-            "https://script.google.com/macros/s/AKfycbxjfrDr55URJNQry3OoMJUdwol7f1FReft_lN-2QudoMfFX7URf6T7-f3StziDkGQ4l/exec";
+        string url = scriptUrl + "?action=shop"; 
 
         UnityWebRequest request = new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null);
         request.SendWebRequest().completed += asyncOp =>
@@ -26,10 +27,10 @@ public static class GameDataUpdater
         };
     }
 
+    [MenuItem("Game/Update Resources Data")]
     public static void UpdateGameData()
     {
-        string url =
-    "https://script.google.com/macros/s/AKfycbw9N3fJ8ffk4we8Vv8P1poDh11bVxCimPyJT2oLNzvQlXFayajRI64yMZl9w8RqiA8veQ/exec";
+        string url = scriptUrl + "?action=resources";
 
         UnityWebRequest request = new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null);
         request.SendWebRequest().completed += asyncOp =>
