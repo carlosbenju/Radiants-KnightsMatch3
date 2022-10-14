@@ -17,11 +17,11 @@ public class MasterSceneManager : MonoBehaviour
 
     public Action OnSceneCompleteLoading = delegate { };
 
-    GameProgressionService _gameProgressionService;
+    GameProgressionTestService _gameProgressionService;
 
     void Start()
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionTestService>();
 
         if (_gameProgressionService.Load() == null)
         {

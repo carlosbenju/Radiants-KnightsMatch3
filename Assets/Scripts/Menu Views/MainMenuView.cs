@@ -1,55 +1,73 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class MainMenuView : MonoBehaviour
 {
     [SerializeField] Transform _parent;
+    [SerializeField] Transform _resourcesParent;
 
-    [SerializeField] TMP_Text _goldText;
-    [SerializeField] TMP_Text _diamondText;
     [SerializeField] TMP_Text _currentLevelText;
     [SerializeField] TMP_Text _playerName = null;
 
+    [SerializeField]
+    ResourceView _blueprint;
+
+    List<ResourceView> _resourceViews = new List<ResourceView>();
+
     [SerializeField] Image _playerImage = null;
 
-    [SerializeField] List<Sprite> _imageSprites = null;
+    GameProgressionTestService _progressionService;
+    ResourceInventoryProgression _inventoryProgression;
 
-    Inventory _inventory;
-
-    GameProgressionService _gameProgressionService;
-
-    public void Initialize(Inventory inventory)
+    public void Initialize()
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
-        _inventory = inventory;
+        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _inventoryProgression = _progressionService.ResourceProgression;
+        _inventoryProgression.OnResourceModified += UpdateResource;
 
-        _inventory.OnResourceModified += UpdateResource;
+        InstantiateResourceViews();
 
-        UpdateMenuData();
+        UpdatePlayerData();
+        UpdateResourcesViewData();
     }
 
     void OnDestroy()
     {
-        if (_inventory != null)
-            _inventory.OnResourceModified -= UpdateResource;
+        _inventoryProgression.OnResourceModified -= UpdateResource;
+    }
+
+    private void InstantiateResourceViews()
+    {
+        foreach (InGameResourceConfig resource in _inventoryProgression.Config.Resources)
+        {
+            ResourceView view = Instantiate(_blueprint, _resourcesParent);
+            view.ResourceType = resource.Id;
+            view.Amount.text = _inventoryProgression.GetResourceAmount(resource.Id).ToString();
+            _resourceViews.Add(view);
+
+            Addressables.LoadAssetAsync<Sprite>(resource.AssetName).Completed += handle =>
+            {
+                view.Icon.sprite = handle.Result;
+            };
+
+            Addressables.LoadAssetAsync<Sprite>(resource.AssetName + "Bar").Completed += handle =>
+            {
+                view.Background.sprite = handle.Result;
+            };
+        }
     }
 
     public void OpenPlayerProfilePopup()
     {
-        Debug.Log("OPPP::Clicked");
-
         Addressables.LoadAssetAsync<GameObject>("player_info_popup_v2").Completed += handle =>
         {
             if (handle.Result != null)
             {
                 PlayerProfileView popup = handle.Result.GetComponent<PlayerProfileView>();
-                Instantiate(popup, _parent).Initialize(_inventory, _imageSprites, UpdatePlayerData, handle);
+                Instantiate(popup, _parent).Initialize(_playerImage.sprite, UpdatePlayerData, handle);
             }
         };
     }
@@ -66,31 +84,25 @@ public class MainMenuView : MonoBehaviour
         };
     }
 
-    void UpdateMenuData()
+    void UpdateResourcesViewData()
     {
-        UpdateResource("Gold");
-        UpdateResource("Diamond");
-
-        UpdatePlayerData();
+        _resourceViews.ForEach(r => r.Amount.text = _inventoryProgression.GetResourceAmount(r.ResourceType).ToString());
     }
 
     void UpdatePlayerData()
     {
-        _playerName.text = _gameProgressionService.Data.Name;
-        _playerImage.sprite = _imageSprites.Find(sprite => sprite.name == _gameProgressionService.Data.ProfileImage);
-        _currentLevelText.text = _gameProgressionService.Data.CurrentLevel.ToString();
+        Addressables.LoadAssetAsync<Sprite>(_progressionService.Data.ProfileImage).Completed += handle =>
+        {
+            _playerImage.sprite = handle.Result;
+        };
+
+        _playerName.text = _progressionService.Data.Name;
+        _currentLevelText.text = _progressionService.Data.CurrentLevel.ToString();
     }
 
-    void UpdateResource(string resource)
+    void UpdateResource(string resourceId)
     {
-        switch (resource)
-        {
-            case "Gold":
-                _goldText.text = _inventory.GetAmount("Gold").ToString();
-                break;
-            case "Diamond":
-                _diamondText.text = _inventory.GetAmount("Diamond").ToString();
-                break;
-        }
+        ResourceView resourceView = _resourceViews.Find(r => r.ResourceType == resourceId);
+        resourceView.Amount.text = _inventoryProgression.GetResourceAmount(resourceId).ToString();
     }
 }

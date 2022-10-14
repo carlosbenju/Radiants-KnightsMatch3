@@ -1,25 +1,21 @@
 using System;
+using Game.Services;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
-[Serializable]
 public class ResourceInventoryProgression
 {
-    public SaveData SaveData;
-
-    [NonSerialized]
     public ResourceInventoryConfig Config;
-    [NonSerialized]
-    bool _isDirty = false;
 
     public List<InGameResource> Resources = new List<InGameResource>();
 
-    GameProgressionService _gameProgression;
+    public Action<string> OnResourceModified = resource => { };
 
-    public ResourceInventoryProgression(ResourceInventoryConfig config)
+    IGameProgressionProvider _progressionProvider;
+
+    public ResourceInventoryProgression(ResourceInventoryConfig config, IGameProgressionProvider provider)
     {
-        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
+        _progressionProvider = provider;
         Config = config;
     }
 
@@ -33,7 +29,7 @@ public class ResourceInventoryProgression
         }
 
         resource.Amount = resource.Amount + amount;
-        _isDirty = true;
+        OnResourceModified(resourceId);
     }
 
     public void RemoveResource(string resourceId, int amount)
@@ -46,7 +42,12 @@ public class ResourceInventoryProgression
         }
 
         resource.Amount = Mathf.Max(0, resource.Amount - amount);
-        _isDirty = true;
+        OnResourceModified(resourceId);
+    }
+
+    void DeleteResource(string resourceId)
+    {
+        Resources.Remove(Resources.Find(r => r.Id == resourceId));
     }
 
     public int GetResourceAmount(string resourceId)
@@ -54,22 +55,51 @@ public class ResourceInventoryProgression
         return Resources.Find(resource => resource.Id == resourceId)?.Amount ?? 0;
     }
 
-    public void Save()
+    public void SetInitialValues()
     {
-        var dir = Application.persistentDataPath + "/Saves/";
-
-        if (!Directory.Exists(dir))
+        foreach (InGameResourceConfig resource in Config.Resources)
         {
-            Directory.CreateDirectory(dir);
+            AddResource(resource.Id, resource.StartAmount);
         }
-
-        File.WriteAllText(dir + "inventory.sav", JsonUtility.ToJson(this, true));
-        GUIUtility.systemCopyBuffer = dir;
     }
 
     public void Load()
     {
-        Resources = _gameProgression.Data.ResourcesInventory;
-        _gameProgression.Save();
+        SaveData savedData = JsonUtility.FromJson<SaveData>(_progressionProvider.Load());
+        Resources = savedData.ResourcesInventory;
+        AddNewResourcesFromConfig();
+        RemoveUnusedResources();
+    }
+
+    public void AddNewResourcesFromConfig()
+    {
+        foreach (InGameResourceConfig resourceConfig in Config.Resources)
+        {
+            InGameResource resource = Resources.Find(resource => resource.Id == resourceConfig.Id);
+            if (resource == null)
+            {
+                resource = new InGameResource { Id = resourceConfig.Id, Amount = 0 };
+                resource.Amount += resourceConfig.StartAmount;
+                Resources.Add(resource);
+            }
+        }
+    }
+
+    public void RemoveUnusedResources()
+    {
+        List<InGameResource> ResourcesToDelete = new List<InGameResource>();
+        foreach (InGameResource resource in Resources)
+        {
+            InGameResourceConfig resourceConfig = Config.Resources.Find(r => r.Id == resource.Id);
+            if (resourceConfig == null)
+            {
+                ResourcesToDelete.Add(resource);
+            }
+        }
+
+        foreach (InGameResource resource in ResourcesToDelete)
+        {
+            DeleteResource(resource.Id);
+        }
     }
 }

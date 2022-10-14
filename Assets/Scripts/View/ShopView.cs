@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Game.Services;
+using UnityEngine.AddressableAssets;
 
 public class ShopView : MonoBehaviour
 {
@@ -10,30 +11,44 @@ public class ShopView : MonoBehaviour
     [SerializeField] GameObject _premiumItemsParent = null;
     [SerializeField] CanvasGroup _goldShopCanvasGroup = null;
     [SerializeField] CanvasGroup _diamondShopCanvasGroup = null;
-    [SerializeField] TMP_Text _goldText = null;
-    [SerializeField] TMP_Text _diamondText = null;
-    [SerializeField] TMP_Text _bombBoosterText = null;
-    [SerializeField] TMP_Text _colorBombBoosterText = null;
+
+    [SerializeField] Transform _resourcesParent;
+    [SerializeField] ResourceView _resourceView;
+    List<ResourceView> _resourceViews = new List<ResourceView>();
+
+    [SerializeField] Transform _boostersParent;
+    [SerializeField] BoosterView _boosterView;
+    List<BoosterView> _boostersViews = new List<BoosterView>();
 
     ShopController _controller;
-    Inventory _inventory;
 
     int _transactionsDone;
 
+    GameProgressionTestService _progressionService;
+    ResourceInventoryProgression _resourceProgression;
+    IconCollectibleProgression _iconCollectibleProgression;
+    BoostersInventoryProgression _boosterProgression;
     AnalyticsGameService _analyticsService = null;
     AdsGameService _adsService = null;
     IIAPService _iapService = null;
 
-    public void Initialize(ShopController controller, Inventory inventory)
+    public void Initialize(GameProgressionTestService gameProgression, ShopController controller)
     {
+        _progressionService = gameProgression;
+        _resourceProgression = _progressionService.ResourceProgression;
+        _iconCollectibleProgression = _progressionService.IconProgression;
+        _boosterProgression = _progressionService.BoostersProgression;
+
         _analyticsService = ServiceLocator.GetService<AnalyticsGameService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
         _iapService = ServiceLocator.GetService<IIAPService>();
 
+        _resourceProgression.OnResourceModified += UpdateResource;
+        _boosterProgression.OnBoosterModified += UpdateResource;
         _controller = controller;
-        _inventory = inventory;
 
-        _inventory.OnResourceModified += UpdateResource;
+        InstantiateResourceViews();
+        InstantiateBoosterViews();
 
         while (_itemsParent.transform.childCount > 0)
         {
@@ -42,9 +57,9 @@ public class ShopView : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (ShopItemModel shopItemModel in _controller.Model.Items)
+        foreach (ShopItemModel shopItemModel in _controller.Config.GoldShopItems)
         {
-            Instantiate(_shopItemPrefab, _itemsParent.transform).SetData(shopItemModel, inventory, OnPurchaseItem);
+            Instantiate(_shopItemPrefab, _itemsParent.transform).SetData(shopItemModel, _resourceProgression, _iconCollectibleProgression, OnPurchaseItem);
         }
 
         //foreach (ShopItemModel shopItemModel in _controller.Model.PremiumItems)
@@ -61,7 +76,45 @@ public class ShopView : MonoBehaviour
         {
             { "transactionsPerformed", _transactionsDone }
         });
-        _inventory.OnResourceModified -= UpdateResource;
+        _resourceProgression.OnResourceModified -= UpdateResource;
+        _boosterProgression.OnBoosterModified -= UpdateResource;
+    }
+
+    private void InstantiateResourceViews()
+    {
+        foreach (InGameResourceConfig resource in _resourceProgression.Config.Resources)
+        {
+            ResourceView view = Instantiate(_resourceView, _resourcesParent);
+            view.ResourceType = resource.Id;
+            view.Amount.text = _resourceProgression.GetResourceAmount(resource.Id).ToString();
+            _resourceViews.Add(view);
+
+            Addressables.LoadAssetAsync<Sprite>(resource.AssetName).Completed += handle =>
+            {
+                view.Icon.sprite = handle.Result;
+            };
+
+            Addressables.LoadAssetAsync<Sprite>(resource.AssetName + "Bar").Completed += handle =>
+            {
+                view.Background.sprite = handle.Result;
+            };
+        }
+    }
+
+    private void InstantiateBoosterViews()
+    {
+        foreach (BoosterConfig booster in _boosterProgression.Config.Boosters)
+        {
+            BoosterView view = Instantiate(_boosterView, _boostersParent);
+            view.BoosterType = booster.Id;
+            view.Amount.text = _resourceProgression.GetResourceAmount(booster.Id).ToString();
+            _boostersViews.Add(view);
+
+            Addressables.LoadAssetAsync<Sprite>(booster.AssetName).Completed += handle =>
+            {
+                view.Icon.sprite = handle.Result;
+            };
+        }
     }
 
     public void MoveToPremiumShopSection()
@@ -114,28 +167,24 @@ public class ShopView : MonoBehaviour
 
     void UpdateMenuData()
     {
-        UpdateResource("Gold");
-        UpdateResource("Diamond");
-        UpdateResource("Bomb Booster");
-        UpdateResource("Color Bomb Booster");
+        _resourceViews.ForEach(r => r.Amount.text = _resourceProgression.GetResourceAmount(r.ResourceType).ToString());
+        _boostersViews.ForEach(r => r.Amount.text = _boosterProgression.GetBoosterAmount(r.BoosterType).ToString());
     }
 
-    void UpdateResource(string resource)
+    void UpdateResource(string resourceId)
     {
-        switch (resource)
+        ResourceView resourceView = _resourceViews.Find(r => r.ResourceType == resourceId);
+        if (resourceView != null)
         {
-            case "Gold":
-                _goldText.text = _inventory.GetAmount("Gold").ToString();
-                break;
-            case "Diamond":
-                _diamondText.text = _inventory.GetAmount("Diamond").ToString();
-                break;
-            case "Bomb Booster":
-                _bombBoosterText.text = _inventory.GetAmount("Bomb Booster").ToString();
-                break;
-            case "Color Bomb Booster":
-                _colorBombBoosterText.text = _inventory.GetAmount("Color Bomb Booster").ToString();
-                break;
+            resourceView.Amount.text = _resourceProgression.GetResourceAmount(resourceId).ToString();
+            return;
+        }
+
+        BoosterView boosterView = _boostersViews.Find(b => b.BoosterType == resourceId);
+        if (boosterView != null)
+        {
+            boosterView.Amount.text = _boosterProgression.GetBoosterAmount(resourceId).ToString();
+            return;
         }
     }
 }

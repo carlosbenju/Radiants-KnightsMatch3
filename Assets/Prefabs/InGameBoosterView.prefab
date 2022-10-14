@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 2440004320063215060}
   - component: {fileID: 2440004320063215064}
   m_Layer: 5
-  m_Name: BoosterView
+  m_Name: InGameBoosterView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

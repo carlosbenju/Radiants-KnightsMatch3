@@ -5,37 +5,50 @@ using UnityEngine;
 
 public class ShopController
 {
-    public ShopModel Model { get; private set; }
-    public Inventory Inventory { get; private set; }
+    public ShopConfig Config { get; private set; }
 
-    public ShopController(Inventory inventory)
+    GameProgressionTestService _gameProgression;
+
+    ResourceInventoryProgression _resourceProgression;
+    BoostersInventoryProgression _boosterProgression;
+    IconCollectibleProgression _iconProgression;
+
+    public ShopController(ShopConfig config, GameProgressionTestService gameProgression)
     {
-        Inventory = inventory;
+        Config = config;
+        _gameProgression = gameProgression;
+
+        _resourceProgression = _gameProgression.ResourceProgression;
+        _boosterProgression = _gameProgression.BoostersProgression;
+        _iconProgression = _gameProgression.IconProgression;
     }
 
     public void PurchaseItem(ShopItemModel model)
     {
-        if (model.IsObtainedWithAd || model.IsObtainedWithIAP)
-        {
-            Inventory.Add(model.Reward);
-            Inventory.Save();
-            return;
-        }
-
-        if (Inventory.GetAmount(model.Cost.Type) < model.Cost.Amount)
+        if (_resourceProgression.GetResourceAmount(model.CostType) < model.CostAmount)
         {
             Debug.Log("The user does not have enough to pay");
+        }
+
+        if (model.RewardType == "Booster")
+        {
+            _resourceProgression.RemoveResource(model.CostType, model.CostAmount);
+            _boosterProgression.AddBooster(model.RewardName, model.RewardAmount);
             return;
         }
 
-        Inventory.Remove(model.Cost);
-        Inventory.Add(model.Reward);
-        Inventory.Save();
-    }
+        if (model.RewardType == "Resource")
+        {
+            _resourceProgression.RemoveResource(model.CostType, model.CostAmount);
+            _resourceProgression.AddResource(model.RewardName, model.RewardAmount);
+            return;
+        }
 
-
-    public void Load()
-    {
-        Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
+        if (model.RewardType == "Icon")
+        {
+            _resourceProgression.RemoveResource(model.CostType, model.CostAmount);
+            _iconProgression.AddIcon(model.RewardName);
+            return;
+        }
     }
 }

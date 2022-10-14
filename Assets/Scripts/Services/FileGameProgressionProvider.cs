@@ -22,8 +22,7 @@ public class FileGameProgressionProvider : IGameProgressionProvider
 
         if (File.Exists(fullPath))
         {
-            string json = File.ReadAllText(fullPath);
-            return JsonUtility.FromJson<string>(json);
+            return File.ReadAllText(fullPath);
         }
 
         return string.Empty;

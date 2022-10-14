@@ -13,7 +13,7 @@ public class Inventory
 
     public Inventory()
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
+        // _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
     }
 
     public void CreateInventory(List<InventoryItem> items)

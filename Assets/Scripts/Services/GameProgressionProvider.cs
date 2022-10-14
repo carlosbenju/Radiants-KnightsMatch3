@@ -34,6 +34,6 @@ public class GameProgressionProvider : IGameProgressionProvider
     public void Save(string data)
     {
         _localData.Save(data);
-        // _remoteData.Save(data);
+        _remoteData.Save(data);
     }
 }

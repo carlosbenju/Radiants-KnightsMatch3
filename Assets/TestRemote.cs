@@ -16,29 +16,20 @@ public class TestRemote : MonoBehaviour
         ServicesInitializer servicesInitializer = new ServicesInitializer("development");
 
         LoginGameService loginService = new LoginGameService();
+        GameProgressionTestService progressionService = new GameProgressionTestService();
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
-        GameProgressionService gameProgressionService = new GameProgressionService();
-        GameConfigService gameConfigService = new GameConfigService();
-        IGameProgressionProvider progressionProvider = new GameProgressionProvider();
-
-        ServiceLocator.RegisterService(gameProgressionService);
+        ResourceInventoryConfig resourcesProgression = new ResourceInventoryConfig();
+        IconCollectiblesInventoryConfig iconsConfig = new IconCollectiblesInventoryConfig();
+        IGameProgressionProvider progressionProvider = new FileGameProgressionProvider();
 
         await servicesInitializer.Initialize();
         await loginService.Initialize();
         await remoteConfig.Initialize();
-        gameConfigService.Initialize(remoteConfig);
-        gameProgressionService.Initialize(gameConfigService, progressionProvider);
+        progressionService.Initialize(remoteConfig, progressionProvider);
+        progressionService.Load();
+        progressionService.Save();
 
-        ResourceInventoryConfig inventoryConfig = new ResourceInventoryConfig();
-        inventoryConfig.Load(remoteConfig);
-
-        ResourceInventoryProgression inventoryProgression = new ResourceInventoryProgression(inventoryConfig);
-        inventoryProgression.Load();
-        inventoryProgression.Save();
-
-        ResourceInventoryProgression newProgression = new ResourceInventoryProgression(inventoryConfig);
-        newProgression.Load();
-        newProgression.AddResource("gold", 700);
-        newProgression.Save();
+        //progressionService.CreateUser("Enygma");
+        //progressionService.Save();
     } 
 }

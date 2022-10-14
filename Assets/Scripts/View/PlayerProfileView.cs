@@ -10,15 +10,17 @@ public class PlayerProfileView : MonoBehaviour
 {
     [SerializeField] IconSelectionView _iconSelectionPrefab;
     [SerializeField] Transform _parent;
+    [SerializeField] Transform _iconSelectionPopupPosition;
 
-    List<Sprite> _profileImages;
     [SerializeField] List<Sprite> _heroImages;
 
-    [SerializeField] Image _playerProfileImage;
+    [SerializeField] Image _playerImage;
     [SerializeField] TextMeshProUGUI _playerNameText;
 
-    [SerializeField] TextMeshProUGUI _goldAmount;
-    [SerializeField] TextMeshProUGUI _diamondAmount;
+    [SerializeField] TMP_Text _goldAmount;
+    [SerializeField] TMP_Text _diamondAmount;
+    [SerializeField] TMP_Text _bombsAmount;
+    [SerializeField] TMP_Text _colorBombsAmount;
 
     [SerializeField] Image _currentHeroImage;
     [SerializeField] TextMeshProUGUI _currentHeroName;
@@ -26,24 +28,28 @@ public class PlayerProfileView : MonoBehaviour
     [SerializeField] TextMeshProUGUI _currentHeroHealth;
     [SerializeField] TextMeshProUGUI _currentHeroStrength;
 
-    Inventory _inventory;
-
     Action _onPopupClosed;
 
     AsyncOperationHandle _currentProfileViewHandle;
 
-    GameProgressionService _gameProgressionService;
+    GameProgressionTestService _progressionService;
+    ResourceInventoryProgression _inventoryProgression;
+    BoostersInventoryProgression _boosterProgression;
 
-    public void Initialize(Inventory inventory, List<Sprite> profileImages, Action onPopupClosed, AsyncOperationHandle handler)
+    Sprite _playerIcon;
+
+    public void Initialize(Sprite playerIcon, Action onPopupClosed, AsyncOperationHandle handler)
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
-        _inventory = inventory;
-        _profileImages = profileImages;
+        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _inventoryProgression = _progressionService.ResourceProgression;
+        _boosterProgression = _progressionService.BoostersProgression;
+
         _onPopupClosed = onPopupClosed;
         _currentProfileViewHandle = handler;
+        _playerIcon = playerIcon;
 
         HeroModel currentHero = new HeroModel();
-        currentHero.InitializeById(_gameProgressionService.Data.CurrentHeroId);
+        currentHero.InitializeById(_progressionService.Data.CurrentHeroId);
 
         SetPlayerData();
         SetHeroData(currentHero);
@@ -51,10 +57,12 @@ public class PlayerProfileView : MonoBehaviour
 
     private void SetPlayerData()
     {
-        _playerProfileImage.sprite = _profileImages.Find(sprite => sprite.name == _gameProgressionService.Data.ProfileImage);
-        _playerNameText.text = _gameProgressionService.Data.Name;
-        _goldAmount.text = _inventory.GetAmount("Gold").ToString();
-        _diamondAmount.text = _inventory.GetAmount("Diamond").ToString();
+        _playerImage.sprite = _playerIcon;
+        _playerNameText.text = _progressionService.Data.Name;
+        _goldAmount.text = _inventoryProgression.GetResourceAmount("Gold").ToString();
+        _diamondAmount.text = _inventoryProgression.GetResourceAmount("Diamond").ToString();
+        _bombsAmount.text = _boosterProgression.GetBoosterAmount("BombBooster").ToString();
+        _colorBombsAmount.text = _boosterProgression.GetBoosterAmount("ColorBombBooster").ToString();
     }
 
     void SetHeroData(HeroModel hero)
@@ -86,15 +94,15 @@ public class PlayerProfileView : MonoBehaviour
             if (handle.Result != null)
             {
                 IconSelectionView popup = handle.Result.GetComponent<IconSelectionView>();
-                Instantiate(popup, _parent).Initialize( _profileImages, ChangePlayerIcon, handle);
+                Instantiate(popup, _iconSelectionPopupPosition.position, Quaternion.identity, _parent).Initialize(ChangePlayerIcon, handle);
             }
         };
     }
 
     void ChangePlayerIcon(string newIconName)
     {
-        _gameProgressionService.Data.ProfileImage = newIconName;
-        _gameProgressionService.Save();
+        _progressionService.Data.ProfileImage = newIconName;
+        _progressionService.Save();
 
         SetPlayerData();
     }

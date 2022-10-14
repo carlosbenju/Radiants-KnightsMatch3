@@ -7,8 +7,6 @@ public class MainMenuSceneInitializer : MonoBehaviour
     [SerializeField] 
     MainMenuView _mainMenuView = null;
 
-    Inventory _inventory = null;
-
     MasterSceneManager _masterSceneManager = null;
 
     private void Awake()
@@ -24,9 +22,6 @@ public class MainMenuSceneInitializer : MonoBehaviour
 
     void Initialize()
     {
-        _inventory = new Inventory();
-        _inventory.Load();
-
-        _mainMenuView.Initialize(_inventory);
+        _mainMenuView.Initialize();
     }
 }

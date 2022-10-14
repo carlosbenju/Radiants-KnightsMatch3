@@ -8,7 +8,7 @@ public class ResourceInventoryConfig
 {
     public List<InGameResourceConfig> Resources;
 
-    public void Load(RemoteConfigGameService remoteConfig)
+    public void Initialize(RemoteConfigGameService remoteConfig)
     {
         JsonUtility.FromJsonOverwrite(remoteConfig.GetJson("ResourceInventory_Config"), this);
     }

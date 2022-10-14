@@ -11,34 +11,27 @@ public class IconSelectionView : MonoBehaviour
     [SerializeField] IconSelectionItem _iconItemPrefab;
     [SerializeField] Transform _parent;
 
-    List<Sprite> _possibleIcons;
-
     Action<string> _onImageSelected = delegate (string imageName) { };
 
     AsyncOperationHandle _currentIconSelectionHandle;
 
-    GameProgressionService _gameProgressionService;
+    GameProgressionTestService _progressionService;
+    IconCollectibleProgression _iconProgression;
 
-    public void Initialize(List<Sprite> possibleIcons, Action<string> onImageIconSelected, AsyncOperationHandle handle)
+    public void Initialize(Action<string> onImageIconSelected, AsyncOperationHandle handle)
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
-        _possibleIcons = possibleIcons;
+        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _iconProgression = _progressionService.IconProgression;
+
         _onImageSelected = onImageIconSelected;
         _currentIconSelectionHandle = handle;
-        List<string> userIcons = new List<string>();
 
-        List<InventoryItem> inventoryItems = _gameProgressionService.Data.Inventory.GetInventoryItems();
-        foreach (InventoryItem i in inventoryItems)
+        foreach (IconCollectibleConfig iconConfig in _iconProgression.Config.Icons)
         {
-            if (i.Type.Contains("icon"))
+            Addressables.LoadAssetAsync<Sprite>(iconConfig.AssetName).Completed += handle =>
             {
-                userIcons.Add(i.Type);
-            }
-        }
-
-        foreach (string i in userIcons)
-        {
-            Instantiate(_iconItemPrefab, _parent).Initialize(i, possibleIcons, SelectImage);
+                Instantiate(_iconItemPrefab, _parent).Initialize(_iconProgression, handle.Result, SelectImage);
+            };
         }
     }
 

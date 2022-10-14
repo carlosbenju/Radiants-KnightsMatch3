@@ -7,12 +7,12 @@ public class ShopSceneInitializer : MonoBehaviour
 {
     [SerializeField] ShopView _shopView = null;
 
-    Inventory _inventory = null;
     ShopController _shopController = null;
 
     MasterSceneManager _masterSceneManager = null;
 
-    AnalyticsGameService _analyticsService = null;
+    GameProgressionTestService _gameProgression;
+    AnalyticsGameService _analyticsService;
 
     private void Awake()
     {
@@ -27,14 +27,12 @@ public class ShopSceneInitializer : MonoBehaviour
 
     void Initialize()
     {
+        _gameProgression = ServiceLocator.GetService<GameProgressionTestService>();
         _analyticsService = ServiceLocator.GetService<AnalyticsGameService>();
-        _inventory = new Inventory();
-        _inventory.Load();
 
-        _shopController = new ShopController(_inventory);
-        _shopController.Load();
+        _shopController = new ShopController(_gameProgression.ShopConfig, _gameProgression);
 
-        _shopView.Initialize(_shopController, _inventory);
+        _shopView.Initialize(_gameProgression, _shopController);
         _analyticsService.SendEvent("enterShop");
     }
 }

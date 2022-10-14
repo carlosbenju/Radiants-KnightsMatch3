@@ -19,33 +19,34 @@ public class ShopItemView : MonoBehaviour
     [SerializeField] TextMeshProUGUI _cost = null;
 
     ShopItemModel _model;
-    Inventory _inventory;
 
     Action<ShopItemModel> _onClickedEvent;
+
+    ResourceInventoryProgression _resourceProgression;
+    IconCollectibleProgression _iconProgression;
 
     AdsGameService _adsService = null;
     IIAPService _iapService = null;
 
-    public void SetData(ShopItemModel model, Inventory inventory, Action<ShopItemModel> onClickedEvent)
+    public void SetData(ShopItemModel model, ResourceInventoryProgression resourceProgression,IconCollectibleProgression iconProgression, Action<ShopItemModel> onClickedEvent)
     {
         _adsService = ServiceLocator.GetService<AdsGameService>();
         _iapService = ServiceLocator.GetService<IIAPService>();
 
-        _model = model;
-        _inventory = inventory;
-        _onClickedEvent = onClickedEvent;
+        _resourceProgression = resourceProgression;
+        _resourceProgression.OnResourceModified += InventoryUpdate;
 
-        _inventory.OnResourceModified += InventoryUpdate;
+        _iconProgression = iconProgression;
+
+        _model = model;
+        _onClickedEvent = onClickedEvent;
 
         UpdateVisuals();
     }
 
     private void OnDestroy()
     {
-        if (_inventory != null)
-        {
-            _inventory.OnResourceModified -= InventoryUpdate;
-        }
+        _resourceProgression.OnResourceModified -= InventoryUpdate;
     }
 
     void InventoryUpdate(string resource)
@@ -60,10 +61,10 @@ public class ShopItemView : MonoBehaviour
         _cost.color = UserCanPay() ? Color.white : Color.red;
 
         _image.sprite = _imageSprites.Find(sprite => sprite.name == _model.Image);
-        _title.text = _model.Name;
+        _title.text = _model.Id;
         _costImage.sprite = _model.IsObtainedWithAd 
             ? _costSprites.Find(sprite => sprite.name == "AdCost") 
-            : _costSprites.Find(sprite => sprite.name == _model.Cost.Type);
+            : _costSprites.Find(sprite => sprite.name == _model.CostType);
 
         if (_model.IsObtainedWithAd)
         {
@@ -78,22 +79,23 @@ public class ShopItemView : MonoBehaviour
         else
         {
             _itemButton.interactable = UserCanPay() ? true : false;
-            _cost.text = _model.Cost.Amount.ToString();
+            _cost.text = _model.CostAmount.ToString();
         }
     }
 
     bool UserCanPay()
     {
-        if (_model.Reward.Type.Contains("icon"))
+        if (_model.RewardType == "Icon")
         {
-            foreach (InventoryItem i in _inventory.GetInventoryItems())
+            IconCollectible iconToFind = _iconProgression.GetIcon(_model.RewardName);
+            if (iconToFind != null)
             {
-                if (i.Type == _model.Reward.Type || _model.Cost.Amount > _inventory.GetAmount(_model.Cost.Type))
-                    return false;
+                return false;
             }
-        } 
+        }
 
-        if (_model.Cost.Amount > _inventory.GetAmount(_model.Cost.Type) && !_model.IsObtainedWithAd) {
+        if (_model.CostAmount > _resourceProgression.GetResourceAmount(_model.CostType) && !_model.IsObtainedWithAd)
+        {
             return false;
         }
 
