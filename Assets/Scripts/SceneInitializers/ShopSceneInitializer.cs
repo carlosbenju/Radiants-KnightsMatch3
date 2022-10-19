@@ -11,7 +11,7 @@ public class ShopSceneInitializer : MonoBehaviour
 
     MasterSceneManager _masterSceneManager = null;
 
-    GameProgressionTestService _gameProgression;
+    GameProgressionService _gameProgression;
     AnalyticsGameService _analyticsService;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class ShopSceneInitializer : MonoBehaviour
 
     void Initialize()
     {
-        _gameProgression = ServiceLocator.GetService<GameProgressionTestService>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
         _analyticsService = ServiceLocator.GetService<AnalyticsGameService>();
 
         _shopController = new ShopController(_gameProgression.ShopConfig, _gameProgression);

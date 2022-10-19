@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -34,9 +34,9 @@ MonoBehaviour:
   m_MonoScriptBundleNaming: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: f855f5c6ca68dd04d8bad8380c7d65b3
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: 889b2826624c686439fb0b540c748fd0
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: 
@@ -44,6 +44,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5bdcce6f78406f6489b4cc18afb9b91a, type: 2}
   - {fileID: 11400000, guid: 32c9def73ede2894eb83e0c26b4ba6df, type: 2}
   - {fileID: 11400000, guid: 098c75205ba7e9c438407d1e18427c8a, type: 2}
+  - {fileID: 11400000, guid: 9549fa1094f053943adb4feee384b7be, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -62,9 +63,9 @@ MonoBehaviour:
       - m_Id: e86a390b0f5d81c4c8721261e6bdb521
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: f855f5c6ca68dd04d8bad8380c7d65b3
-        m_Value: ServerData/[BuildTarget]
+        m_Value: CCDBuildData/6e308ea1-2364-4728-8822-6c9467165d64/latest
       - m_Id: 889b2826624c686439fb0b540c748fd0
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: https://2924ef6a-0719-42c5-97d9-7a644b30f3e2.client-api.unity3dusercontent.com/client_api/v1/buckets/6e308ea1-2364-4728-8822-6c9467165d64/release_by_badge/latest/entry_by_path/content/?path=
     m_ProfileEntryNames:
     - m_Id: f885374bcce5b5f43b75cf9e347cf891
       m_Name: BuildTarget

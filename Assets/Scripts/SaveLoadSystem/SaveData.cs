@@ -8,7 +8,6 @@ public class SaveData
     public string Name;
     public string ProfileImage;
     public int CurrentLevel;
-    public Inventory Inventory;
     public List<InGameResource> ResourcesInventory;
     public List<IconCollectible> IconInventory;
     public List<BoosterModel> BoostersInventory;

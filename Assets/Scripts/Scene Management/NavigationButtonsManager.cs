@@ -19,14 +19,14 @@ public class NavigationButtonsManager : MonoBehaviour
 
     public void GoToStore()
     {
-        masterSceneManager.LoadScene("ShopScene");
+        masterSceneManager.LoadScene("StoreScene");
     }
 
     public void GoToLevel(TextMeshProUGUI text)
     {
         Int32.TryParse(text.text, out int level);
 
-        masterSceneManager.LoadScene("Level " + level);
+        masterSceneManager.LoadScene("Level " + level + " Scene");
     }
 
     public int GetButtonText(Button levelSelectionButton)

@@ -24,15 +24,15 @@ public class ShopView : MonoBehaviour
 
     int _transactionsDone;
 
-    GameProgressionTestService _progressionService;
+    GameProgressionService _progressionService;
     ResourceInventoryProgression _resourceProgression;
     IconCollectibleProgression _iconCollectibleProgression;
     BoostersInventoryProgression _boosterProgression;
     AnalyticsGameService _analyticsService = null;
     AdsGameService _adsService = null;
-    IIAPService _iapService = null;
+    IAPGameService _iapService = null;
 
-    public void Initialize(GameProgressionTestService gameProgression, ShopController controller)
+    public void Initialize(GameProgressionService gameProgression, ShopController controller)
     {
         _progressionService = gameProgression;
         _resourceProgression = _progressionService.ResourceProgression;
@@ -41,7 +41,7 @@ public class ShopView : MonoBehaviour
 
         _analyticsService = ServiceLocator.GetService<AnalyticsGameService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
-        _iapService = ServiceLocator.GetService<IIAPService>();
+        _iapService = ServiceLocator.GetService<IAPGameService>();
 
         _resourceProgression.OnResourceModified += UpdateResource;
         _boosterProgression.OnBoosterModified += UpdateResource;
@@ -57,15 +57,15 @@ public class ShopView : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (ShopItemModel shopItemModel in _controller.Config.GoldShopItems)
+        foreach (ShopItemModel shopItemModel in _controller.Config.RegularShopItems)
         {
             Instantiate(_shopItemPrefab, _itemsParent.transform).SetData(shopItemModel, _resourceProgression, _iconCollectibleProgression, OnPurchaseItem);
         }
 
-        //foreach (ShopItemModel shopItemModel in _controller.Model.PremiumItems)
-        //{
-        //    Instantiate(_shopItemPrefab, _premiumItemsParent.transform).SetData(shopItemModel, inventory, OnPurchaseItem);
-        //}
+        foreach (ShopItemModel iapItemModel in _controller.Config.IAPShopItems)
+        {
+            Instantiate(_shopItemPrefab, _premiumItemsParent.transform).SetData(iapItemModel, _resourceProgression, _iconCollectibleProgression, OnPurchaseItem);
+        }
 
         UpdateMenuData();
     }
@@ -152,7 +152,7 @@ public class ShopView : MonoBehaviour
 
         if (model.IsObtainedWithIAP)
         {
-            if (await _iapService.StartPurchase("test1"))
+            if (await _iapService.StartPurchase(model.Id))
             {
                 _controller.PurchaseItem(model);
                 _transactionsDone++;

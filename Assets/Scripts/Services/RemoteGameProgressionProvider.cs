@@ -16,10 +16,8 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
         Application.focusChanged += SaveToCloud;
     }
 
-    public async void SaveToCloud(bool hasFocus)
+    public async void SaveToCloud(bool hasFocus = false)
     {
-        Debug.Log("Remote data:  "+ _remoteData);
-        
         if (!hasFocus)
         {
             try

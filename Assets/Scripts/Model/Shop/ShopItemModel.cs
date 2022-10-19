@@ -13,4 +13,6 @@ public class ShopItemModel
 
     public bool IsObtainedWithAd;
     public bool IsObtainedWithIAP;
+
+    public string RemoteId;
 }

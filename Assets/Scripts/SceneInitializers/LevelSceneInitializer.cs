@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class LevelSceneInitializer : MonoBehaviour
 {
-    [SerializeField] LevelView _levelPrefab = null;
+    [SerializeField] LevelView _mainMenuView = null;
     [SerializeField] LevelSO _level = null;
 
     LevelController _levelController = null;
     BoardController _boardController;
-    Inventory _inventory;
 
     MasterSceneManager _masterSceneManager = null;
 
@@ -26,14 +25,13 @@ public class LevelSceneInitializer : MonoBehaviour
 
     void Initialize()
     {
+        GameProgressionService progressionService = ServiceLocator.GetService<GameProgressionService>();
+
         LevelModel level = new LevelModel(_level);
         _levelController = new LevelController(level);
 
         _boardController = new BoardController(new BoardModel(7, 5));
 
-        _inventory = new Inventory();
-        _inventory.Load();
-
-        Instantiate(_levelPrefab).Initialize(_levelController, _boardController, _inventory);
+        _mainMenuView.Initialize(progressionService, _levelController, _boardController);
     }
 }

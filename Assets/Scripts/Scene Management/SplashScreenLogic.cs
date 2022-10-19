@@ -42,13 +42,13 @@ public class SplashScreenLogic : MonoBehaviour
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
         LoginGameService loginService = new LoginGameService();
-        GameProgressionTestService progressionService = new GameProgressionTestService();
+        GameProgressionService progressionService = new GameProgressionService();
         GameConfigService gameConfig = new GameConfigService();
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4931437", "Rewarded_Android");
-        IIAPService iapService = new IAPGameService();
-        IGameProgressionProvider gameProgressionProvider = new FileGameProgressionProvider();
+        IAPGameService iapService = new IAPGameService();
+        IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
 
 
         ServiceLocator.RegisterService(gameConfig);
@@ -64,12 +64,14 @@ public class SplashScreenLogic : MonoBehaviour
         await remoteConfig.Initialize();
         await analyticsService.Initialize();
         await adsService.Initialize(Application.isEditor);
-        await iapService.Initialize(new Dictionary<string, string>
+        List<ShopItemModel> iapProducts = JsonUtility.FromJson<List<ShopItemModel>>(remoteConfig.GetJson("IAPProducts_Config"));
+        Dictionary<string, string> productsDicc = new Dictionary<string, string>
         {
-            ["test1"] = "com.enygmagames.test1"
-        });
+            ["50 Diamonds Pack"] = "com.enygmagames.radiants.50diamondspack",
+            ["200 Diamonds Pack"] = "com.enygmagames.radiants.200diamondspack"
+        };
+        await iapService.Initialize(productsDicc);
         await gameProgressionProvider.Initialize();
-        // gameConfig.Initialize(remoteConfig);
         progressionService.Initialize(remoteConfig, gameProgressionProvider);
 
         SceneManager.LoadScene("Master Scene");

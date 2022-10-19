@@ -1,35 +1,77 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Services;
+using System.IO;
 
 public class GameProgressionService : IService
 {
     IGameProgressionProvider _progressionProvider;
+    RemoteConfigGameService _remoteConfig;
+    ResourceInventoryConfig _resourceConfig = new ResourceInventoryConfig();
+    IconCollectiblesInventoryConfig _iconCollectibleConfig = new IconCollectiblesInventoryConfig();
+    BoostersInventoryConfig _boostersInventoryConfig = new BoostersInventoryConfig();
 
+    public ShopConfig ShopConfig = new ShopConfig();
+    public ResourceInventoryProgression ResourceProgression;
+    public IconCollectibleProgression IconProgression;
+    public BoostersInventoryProgression BoostersProgression;
     public SaveData Data;
 
-    GameConfigService _gameConfigService;
-
-    public void Initialize(GameConfigService gameConfig, IGameProgressionProvider provider)
+    public void Initialize(RemoteConfigGameService remoteConfig, IGameProgressionProvider provider)
     {
+        _remoteConfig = remoteConfig;
         _progressionProvider = provider;
-        _gameConfigService = gameConfig;
+
+        _resourceConfig.Initialize(remoteConfig);
+        _iconCollectibleConfig.Initialize(remoteConfig);
+        _boostersInventoryConfig.Initialize(remoteConfig);
+        ShopConfig.Initialize(remoteConfig);
+
+        ResourceProgression = new ResourceInventoryProgression(_resourceConfig, provider);
+        IconProgression = new IconCollectibleProgression(_iconCollectibleConfig, provider);
+        BoostersProgression = new BoostersInventoryProgression(_boostersInventoryConfig, provider);
     }
 
-    public void CreateNewUser(string name)
+    public void CreateUser(string name)
     {
-        Inventory inventory = new Inventory();
-        List<InventoryItem> InitialInventory = new List<InventoryItem>();
-        InitialInventory.Add(new InventoryItem { Type = "Gold", Amount = _gameConfigService.InitialGold });
-        InitialInventory.Add(new InventoryItem { Type = "Diamond", Amount = _gameConfigService.InitialDiamonds });
-        InitialInventory.Add(new InventoryItem { Type = "Bomb Booster", Amount = _gameConfigService.InitialBombBoosters });
-        InitialInventory.Add(new InventoryItem { Type = "Color Bomb Booster", Amount = _gameConfigService.InitialColorBombBoosters });
-        InitialInventory.Add(new InventoryItem { Type = _gameConfigService.InitialProfileImage, Amount = 1 });
+        Data = new SaveData();
+        Data.ResourcesInventory = new List<InGameResource>();
+        Data.IconInventory = new List<IconCollectible>();
+        Data.BoostersInventory = new List<BoosterModel>();
 
-        inventory.CreateInventory(InitialInventory);
+        SetInitialUserValues(name);
+        ResourceProgression.SetInitialValues();
+        IconProgression.SetInitialValues();
+        BoostersProgression.SetInitialValues();
+    }
 
-        Data = new SaveData { ProfileImage = _gameConfigService.InitialProfileImage, Name = name, CurrentLevel = 1, Inventory = inventory, CurrentHeroId = _gameConfigService.InitialHeroId };
+    public void SetInitialUserValues(string name)
+    {
+        Data.Name = name;
+        Data.CurrentLevel = 1;
+        Data.CurrentHeroId = _remoteConfig.GetInt("InitialHeroId", 1);
+        Data.ProfileImage = IconProgression.DefaultIconId;
+    }
+
+    public void Save()
+    {
+        SaveProgressions();
+        string savedData = JsonUtility.ToJson(Data, true);
+        _progressionProvider.Save(savedData);
+    }
+
+    public void SaveProgressions()
+    {
+        Data.ResourcesInventory = ResourceProgression.Resources;
+        Data.IconInventory = IconProgression.Icons;
+        Data.BoostersInventory = BoostersProgression.Boosters;
+    }
+
+
+    public void SaveToCloud()
+    {
+        _progressionProvider.SaveToCloud();
     }
 
     public SaveData Load()
@@ -41,16 +83,19 @@ public class GameProgressionService : IService
         }
 
         Data = JsonUtility.FromJson<SaveData>(savedData);
+        LoadProgressions();
         return Data;
     }
 
-    public void Save()
+    public void LoadProgressions()
     {
-        string savedData = JsonUtility.ToJson(Data, true);
-        _progressionProvider.Save(savedData);
+        ResourceProgression.Load();
+        IconProgression.Load();
+        BoostersProgression.Load();
     }
 
     public void Clear()
     {
+
     }
 }

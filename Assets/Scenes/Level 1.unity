@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc65a73c05f54d244a620b459519e9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelPrefab: {fileID: -3577693708209785591, guid: 447e9df1b1a2c5045b2b77f0f1ac6868, type: 3}
+  _mainMenuView: {fileID: 0}
   _level: {fileID: 11400000, guid: ecd24d336f6eb504c96fedfc8e645df5, type: 2}
 --- !u!4 &180230938
 Transform:

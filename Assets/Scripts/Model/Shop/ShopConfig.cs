@@ -6,11 +6,14 @@ using UnityEngine;
 [Serializable]
 public class ShopConfig
 {
-    public List<ShopItemModel> GoldShopItems = new List<ShopItemModel>();
+    public List<ShopItemModel> RegularShopItems = new List<ShopItemModel>();
+    public List<ShopItemModel> IAPShopItems = new List<ShopItemModel>();
 
     public void Initialize(RemoteConfigGameService remoteConfig)
     {
-        ShopConfig data = JsonUtility.FromJson<ShopConfig>(remoteConfig.GetJson("GoldShop_Config"));
-        GoldShopItems = data.GoldShopItems;
+        ShopConfig regularShopData = JsonUtility.FromJson<ShopConfig>(remoteConfig.GetJson("RegularShop_Config"));
+        ShopConfig iapShopData = JsonUtility.FromJson<ShopConfig>(remoteConfig.GetJson("IAPProducts_Config"));
+        RegularShopItems = regularShopData.RegularShopItems;
+        IAPShopItems = iapShopData.IAPShopItems;
     }
 }

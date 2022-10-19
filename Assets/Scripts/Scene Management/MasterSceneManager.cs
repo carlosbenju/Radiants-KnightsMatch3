@@ -17,11 +17,11 @@ public class MasterSceneManager : MonoBehaviour
 
     public Action OnSceneCompleteLoading = delegate { };
 
-    GameProgressionTestService _gameProgressionService;
+    GameProgressionService _gameProgressionService;
 
     void Start()
     {
-        _gameProgressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
 
         if (_gameProgressionService.Load() == null)
         {
@@ -38,6 +38,7 @@ public class MasterSceneManager : MonoBehaviour
         if (_currentScene.name != _firstLoginScene)
         {
             _gameProgressionService.Save();
+            _gameProgressionService.SaveToCloud();
         }
     }
 

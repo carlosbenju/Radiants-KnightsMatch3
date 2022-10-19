@@ -15,12 +15,12 @@ public class IconSelectionView : MonoBehaviour
 
     AsyncOperationHandle _currentIconSelectionHandle;
 
-    GameProgressionTestService _progressionService;
+    GameProgressionService _progressionService;
     IconCollectibleProgression _iconProgression;
 
     public void Initialize(Action<string> onImageIconSelected, AsyncOperationHandle handle)
     {
-        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _progressionService = ServiceLocator.GetService<GameProgressionService>();
         _iconProgression = _progressionService.IconProgression;
 
         _onImageSelected = onImageIconSelected;

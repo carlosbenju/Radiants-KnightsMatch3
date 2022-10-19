@@ -12,24 +12,30 @@
             "deviceId": "R58R41XSYSB",
             "name": "com.EnygmaGames.RadiantKnightsMatch3",
             "processId": 11764,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R58R41XSYSB",
             "name": "com.EnygmaGames.RadiantKnightsMatch3",
             "processId": 19971,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R58R41XSYSB",
             "name": "com.EnygmaGames.RadiantKnightsMatch3",
             "processId": 1574,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R58R41XSYSB",
             "name": "com.EnygmaGames.RadiantKnightsMatch3",
             "processId": 9770,
+            "exited": true
+        },
+        {
+            "deviceId": "R58R41XSYSB",
+            "name": "com.sec.android.app.launcher",
+            "processId": 2111,
             "exited": false
         }
     ],

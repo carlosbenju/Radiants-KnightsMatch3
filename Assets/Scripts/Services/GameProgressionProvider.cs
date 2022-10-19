@@ -36,4 +36,9 @@ public class GameProgressionProvider : IGameProgressionProvider
         _localData.Save(data);
         _remoteData.Save(data);
     }
+
+    public void SaveToCloud(bool hasFocus = false)
+    {
+        _remoteData.SaveToCloud();
+    }
 }

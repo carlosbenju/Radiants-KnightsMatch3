@@ -7,13 +7,13 @@ public class ShopController
 {
     public ShopConfig Config { get; private set; }
 
-    GameProgressionTestService _gameProgression;
+    GameProgressionService _gameProgression;
 
     ResourceInventoryProgression _resourceProgression;
     BoostersInventoryProgression _boosterProgression;
     IconCollectibleProgression _iconProgression;
 
-    public ShopController(ShopConfig config, GameProgressionTestService gameProgression)
+    public ShopController(ShopConfig config, GameProgressionService gameProgression)
     {
         Config = config;
         _gameProgression = gameProgression;

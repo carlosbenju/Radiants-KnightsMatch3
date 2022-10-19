@@ -26,12 +26,12 @@ public class ShopItemView : MonoBehaviour
     IconCollectibleProgression _iconProgression;
 
     AdsGameService _adsService = null;
-    IIAPService _iapService = null;
+    IAPGameService _iapService = null;
 
     public void SetData(ShopItemModel model, ResourceInventoryProgression resourceProgression,IconCollectibleProgression iconProgression, Action<ShopItemModel> onClickedEvent)
     {
         _adsService = ServiceLocator.GetService<AdsGameService>();
-        _iapService = ServiceLocator.GetService<IIAPService>();
+        _iapService = ServiceLocator.GetService<IAPGameService>();
 
         _resourceProgression = resourceProgression;
         _resourceProgression.OnResourceModified += InventoryUpdate;
@@ -58,7 +58,9 @@ public class ShopItemView : MonoBehaviour
     {
         if (_model == null) return;
 
-        _cost.color = UserCanPay() ? Color.white : Color.red;
+        bool canPay = UserCanPay();
+
+        _cost.color = canPay ? Color.white : Color.red;
 
         _image.sprite = _imageSprites.Find(sprite => sprite.name == _model.Image);
         _title.text = _model.Id;
@@ -70,21 +72,30 @@ public class ShopItemView : MonoBehaviour
         {
             _itemButton.interactable =  false;
             StartCoroutine(WaitForAdToLoad());
+            _costImage.sprite = _costSprites.Find(sprite => sprite.name == "AdCost");
         }
         else if (_model.IsObtainedWithIAP)
         {
             _itemButton.interactable = false;
             StartCoroutine(WaitForIAPReady());
+            _costImage.sprite = _costSprites.Find(sprite => sprite.name == "IAPCost");
+            _cost.text = _iapService.GetLocalizedPrice(_model.Id);
         } 
         else
         {
-            _itemButton.interactable = UserCanPay() ? true : false;
-            _cost.text = _model.CostAmount.ToString();
+            _itemButton.interactable = canPay ? true : false;
+            _cost.text = _model.CostAmount == 0 ? "Free!" : _model.CostAmount.ToString();
+            _costImage.sprite = _costSprites.Find(sprite => sprite.name == _model.CostType);
         }
     }
 
     bool UserCanPay()
     {
+        if (_model.CostAmount > _resourceProgression.GetResourceAmount(_model.CostType) && !_model.IsObtainedWithAd)
+        {
+            return false;
+        }
+
         if (_model.RewardType == "Icon")
         {
             IconCollectible iconToFind = _iconProgression.GetIcon(_model.RewardName);
@@ -92,11 +103,8 @@ public class ShopItemView : MonoBehaviour
             {
                 return false;
             }
-        }
 
-        if (_model.CostAmount > _resourceProgression.GetResourceAmount(_model.CostType) && !_model.IsObtainedWithAd)
-        {
-            return false;
+            return true;
         }
 
         return true;
@@ -123,7 +131,6 @@ public class ShopItemView : MonoBehaviour
         }
 
         _itemButton.interactable = true;
-        _cost.text = _iapService.GetLocalizedPrice("test1");
     }
 
     public void OnClicked()

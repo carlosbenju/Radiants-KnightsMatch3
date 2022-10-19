@@ -9,13 +9,13 @@ public class FirstLoginManager : MonoBehaviour
     [SerializeField] string sceneToLoad;
     MasterSceneManager masterSceneManager;
 
-    GameProgressionTestService _progressionService;
+    GameProgressionService _progressionService;
 
     private void Awake()
     {
         masterSceneManager = FindObjectOfType<MasterSceneManager>();
 
-        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _progressionService = ServiceLocator.GetService<GameProgressionService>();
     }
 
     public void SelectName()

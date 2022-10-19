@@ -13,34 +13,34 @@ public class LevelView : MonoBehaviour
 
     [SerializeField] GameObject _heroSpawn;
     [SerializeField] GameObject _enemySpawn;
-    [SerializeField] GameObject _parent;
 
     [SerializeField] Slider _heroHealthSlider;
     [SerializeField] Slider _enemyHealthSlider;
-    [SerializeField] TextMeshProUGUI _heroHealthText;
-    [SerializeField] TextMeshProUGUI _enemyHealthText;
-    [SerializeField] TextMeshProUGUI _enemyTurnsToAttackText;
-    [SerializeField] TextMeshProUGUI _bombBoosterAmount;
-    [SerializeField] TextMeshProUGUI _colorBombBoosterAmount;
-    [SerializeField] Image _bombBoosterImage;
-    [SerializeField] Image _colorBombBoosterImage;
-    [SerializeField] List<Sprite> _boosterSprites;
+    [SerializeField] TMP_Text _heroHealthText;
+    [SerializeField] TMP_Text _enemyHealthText;
+    [SerializeField] TMP_Text _enemyTurnsToAttackText;
+
+    [SerializeField] InGameBoosterView _boosterPrefab;
+    [SerializeField] Transform _boostersParent;
+    List<InGameBoosterView> _boostersViews = new List<InGameBoosterView>();
+
+    BoostersInventoryProgression _boostersInventoryProgression;
 
     EnemyView _currentEnemyView;
 
     LevelController _levelController;
     BoardController _boardController;
-    Inventory _inventory;
 
-
-    public void Initialize(LevelController levelController, BoardController boardController, Inventory inventory)
+    public void Initialize(GameProgressionService progressionService, LevelController levelController, BoardController boardController)
     {
+        _boostersInventoryProgression = progressionService.BoostersProgression;
+
         _levelController = levelController;
         _boardController = boardController;
-        _inventory = inventory;
 
         _levelController.InitializeLevel();
 
+        _boostersInventoryProgression.OnBoosterModified += UpdateBooster;
         _boardController.OnTileDestroyed += OnTilesDestroyed;
         _levelController.OnWaveChanged += SpawnEnemy;
         _levelController.OnWaveChanged += UpdateHealthBarAndText;
@@ -48,14 +48,14 @@ public class LevelView : MonoBehaviour
         _levelController.OnGameWon += OpenWinPopup;
         _levelController.OnGameLost += OpenLosePopup;
 
-        Instantiate(_boardPrefab).Initialize(_boardController);
-        Instantiate(_heroPrefab, _heroSpawn.transform.position, Quaternion.identity, _parent.transform)
+        Instantiate(_boardPrefab, transform).Initialize(_boardController);
+        Instantiate(_heroPrefab, _heroSpawn.transform.position, Quaternion.identity, transform)
             .SetData(_levelController.Hero);
 
         SpawnEnemy();
 
-        UpdateInventoryView();
         UpdateHealthBarAndText();
+        InstantiateBoosterViews();
     }
 
     private void OnDestroy()
@@ -74,6 +74,27 @@ public class LevelView : MonoBehaviour
             _levelController.OnGameWon -= OpenWinPopup;
             _levelController.OnGameLost -= OpenLosePopup;
         }
+
+        _boostersInventoryProgression.OnBoosterModified -= UpdateBooster;
+    }
+
+    void InstantiateBoosterViews()
+    {
+        foreach (BoosterConfig booster in _boostersInventoryProgression.Config.Boosters)
+        {
+            InGameBoosterView view = Instantiate(_boosterPrefab, _boostersParent);
+            int boosterAmount = _boostersInventoryProgression.GetBoosterAmount(booster.Id);
+            view.Initialize(booster.Id, boosterAmount, OnBoosterClick);
+            _boostersViews.Add(view);
+
+            Addressables.LoadAssetAsync<Sprite>(booster.AssetName).Completed += handle =>
+            {
+                if (handle.Result != null)
+                {
+                    view.Icon.sprite = handle.Result;
+                }
+            };
+        }
     }
 
     void SpawnEnemy()
@@ -81,7 +102,7 @@ public class LevelView : MonoBehaviour
         if (_currentEnemyView != null) 
             Destroy(_currentEnemyView.gameObject);
 
-        _currentEnemyView = Instantiate(_enemyPrefab, _enemySpawn.transform.position, Quaternion.identity, _parent.transform);
+        _currentEnemyView = Instantiate(_enemyPrefab, _enemySpawn.transform.position, Quaternion.identity, transform);
         _currentEnemyView.SetData(_levelController.CurrentEnemy);
         _currentEnemyView.GetComponent<Image>().SetNativeSize();
     }
@@ -91,12 +112,10 @@ public class LevelView : MonoBehaviour
         _levelController.AttackToEnemy(quantity, type);
     }
 
-    void UpdateInventoryView()
+    void UpdateBooster(string boosterId)
     {
-        _bombBoosterAmount.text = _inventory.GetAmount("Bomb Booster").ToString();
-        _bombBoosterImage.sprite = _boosterSprites.Find(sprite => sprite.name == "Bomb");
-        _colorBombBoosterAmount.text = _inventory.GetAmount("Color Bomb Booster").ToString();
-        _colorBombBoosterImage.sprite = _boosterSprites.Find(sprite => sprite.name == "Color Bomb");
+        InGameBoosterView boosterView = _boostersViews.Find(b => b.BoosterType == boosterId);
+        boosterView.Amount.text = _boostersInventoryProgression.GetBoosterAmount(boosterId).ToString();
     }
 
     void UpdateHealthBarAndText()
@@ -138,25 +157,36 @@ public class LevelView : MonoBehaviour
         };
     }
 
-    public void ClickOnBombBoosterButton()
+    public void OnBoosterClick(string clickedBoosterType)
     {
-        if (_inventory.GetAmount("Bomb Booster") > 0)
+        if (clickedBoosterType == "BombBooster")
         {
-            _boardController.CreateBomb();
-            _inventory.Remove(new InventoryItem { Type = "Bomb Booster", Amount = 1 });
-
-            UpdateInventoryView();
+            BombBoosterPressed();
+        } else if (clickedBoosterType == "ColorBombBooster")
+        {
+            ColorBombBoosterPressed();
         }
     }
 
-    public void ClickOnColorBombBoosterButton()
+    public void BombBoosterPressed()
     {
-        if (_inventory.GetAmount("Color Bomb Booster") > 0)
+        string booster = "BombBooster";
+
+        if (_boostersInventoryProgression.GetBoosterAmount(booster) > 0)
+        {
+            _boardController.CreateBomb();
+            _boostersInventoryProgression.RemoveBooster(booster, 1);
+        }
+    }
+
+    public void ColorBombBoosterPressed()
+    {
+        string booster = "ColorBombBooster";
+
+        if (_boostersInventoryProgression.GetBoosterAmount(booster) > 0)
         {
             _boardController.CreateColorBomb();
-            _inventory.Remove(new InventoryItem { Type = "Color Bomb Booster", Amount = 1 });
-
-            UpdateInventoryView();
+            _boostersInventoryProgression.RemoveBooster(booster, 1);
         }
     }
 } 

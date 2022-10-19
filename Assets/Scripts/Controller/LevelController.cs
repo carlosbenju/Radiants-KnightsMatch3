@@ -71,6 +71,7 @@ public class LevelController
 
     void EnemyTryToAttack()
     {
+        CurrentEnemy.TurnsToAttack--;
         if (EnemyCanAttack())
         {
             Hero.ReceiveDamage(CurrentEnemy.Strength, CurrentEnemy.Type);
@@ -84,7 +85,6 @@ public class LevelController
             return;
         }
 
-        CurrentEnemy.TurnsToAttack--;
         OnTurnPassed?.Invoke();
     }
 
@@ -128,14 +128,12 @@ public class LevelController
         {
             foreach (InventoryItem reward in Level.Rewards)
             {
-                _gameProgressionService.Data.Inventory.Add(reward);
-                _gameProgressionService.Data.Inventory.Save();
+                _gameProgressionService.ResourceProgression.AddResource(reward.Type, reward.Amount);
             }
 
             Level.IsCompleted = true;
             _gameProgressionService.Data.CompletedLevels.Add(Level);
             _gameProgressionService.Data.CurrentLevel++;
-            _gameProgressionService.Save();
         }
 
         OnGameWon?.Invoke();

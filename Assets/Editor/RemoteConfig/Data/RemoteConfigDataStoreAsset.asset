@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3dc6ec73-417e-4ce8-a743-663e1f08a347\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"af9540db-297d-4263-90f0-2b48ea63e65a\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"71dc6b0b-a47f-43ce-acc7-bd2bc5467957\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"6f4ba56f-d6b5-402d-9779-43eb0ebd5ba0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5fc08500-0dde-47ae-8f02-8b7dc3a0ab11\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"044e52e6-c832-40ee-993f-69dbda14c40b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"dcd8972c-0c0e-4374-80e2-da15b2fcd9ca\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"333eec1b-435a-41b4-a2c3-b3a32e8e0452\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"516f8d84-e119-451d-adb1-980532c6ea62\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"c25cddd2-6c38-4da7-bdc0-6c0cecde702b\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"183a5238-9392-482a-a27d-538e5d814b0e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"495c2717-9502-4efa-9c2d-e38d29abd6fd\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ade9987d-d8c2-4171-80ea-b3c67be0c70b\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ad9787e2-e97a-4a97-b55d-faa033ccb729\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ResourceInventory_Config\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"Resources\": [\r\n          {\r\n            \"Id\": \"Gold\",\r\n           
@@ -36,13 +36,13 @@ MonoBehaviour:
     },\r\n          {\r\n            \"Id\": \"Diamond\",\r\n            \"StartAmount\":
     \"50.00\",\r\n            \"AssetName\": \"Diamond\"\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"6445e816-20d0-4a91-86e7-cb3aad723c9e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"216bf0dc-6e7b-470a-8e59-269bc8fbd737\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"Icons_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"Icons\": [\r\n          {\r\n           
     \"Id\": \"galaxy-icon\",\r\n            \"AssetName\": \"galaxy-icon\"\r\n         
     },\r\n          {\r\n            \"Id\": \"fox-icon\",\r\n            \"AssetName\":
     \"fox-icon\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"57ebe1e1-e3fa-40b1-9044-766983050b34\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"27655414-2b0f-4bca-a0d9-f2cc7fbc1e2b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Boosters_Config\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"Boosters\":
     [\r\n          {\r\n            \"Id\": \"BombBooster\",\r\n            \"StartAmount\":
@@ -50,46 +50,57 @@ MonoBehaviour:
     {\r\n            \"Id\": \"ColorBombBooster\",\r\n            \"StartAmount\":
     \"1.00\",\r\n            \"AssetName\": \"ColorBomb\"\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"7fc201cc-ef20-4149-9bc7-01a3710c335e\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"GoldShop_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
-    null,\r\n      \"value\": {\r\n        \"GoldShopItems\": [\r\n          {\r\n           
-    \"Id\": \"Bomb\",\r\n            \"Image\": \"Bomb\",\r\n            \"CostType\":
-    \"Gold\",\r\n            \"CostAmount\": \"200.00\",\r\n            \"RewardType\":
+    \"3c2a4f4d-1ab4-4ff5-8f11-0a5edc8090fb\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"RegularShop_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": {\r\n        \"RegularShopItems\": [\r\n          {\r\n           
+    \"Id\": \"Bomb\",\r\n            \"Image\": \"Bomb\",\r\n            \"RewardType\":
     \"Booster\",\r\n            \"RewardName\": \"BombBooster\",\r\n            \"RewardAmount\":
-    \"1.00\",\r\n            \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\":
+    \"1.00\",\r\n            \"IsObtainedWithAd\": true,\r\n            \"IsObtainedWithIAP\":
     false\r\n          },\r\n          {\r\n            \"Id\": \"ColorBomb\",\r\n           
     \"Image\": \"ColorBomb\",\r\n            \"CostType\": \"Gold\",\r\n           
     \"CostAmount\": \"500.00\",\r\n            \"RewardType\": \"Booster\",\r\n           
     \"RewardName\": \"ColorBombBooster\",\r\n            \"RewardAmount\": \"1.00\",\r\n           
     \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": false\r\n         
-    },\r\n          {\r\n            \"Id\": \"5 Bombs Pack\",\r\n            \"Image\":
+    },\r\n          {\r\n            \"Id\": \"Free Bombs!\",\r\n            \"Image\":
     \"Bomb\",\r\n            \"CostType\": \"Gold\",\r\n            \"CostAmount\":
-    \"800.00\",\r\n            \"RewardType\": \"Booster\",\r\n            \"RewardName\":
-    \"BombBooster\",\r\n            \"RewardAmount\": \"5.00\",\r\n            \"IsObtainedWithAd\":
+    \"0.00\",\r\n            \"RewardType\": \"Booster\",\r\n            \"RewardName\":
+    \"BombBooster\",\r\n            \"RewardAmount\": \"1.00\",\r\n            \"IsObtainedWithAd\":
     false,\r\n            \"IsObtainedWithIAP\": false\r\n          },\r\n         
-    {\r\n            \"Id\": \"3 Color Bombs Pack\",\r\n            \"Image\": \"ColorBomb\",\r\n           
-    \"CostType\": \"Gold\",\r\n            \"CostAmount\": \"1200.00\",\r\n           
-    \"RewardType\": \"Booster\",\r\n            \"RewardName\": \"ColorBombBooster\",\r\n           
-    \"RewardAmount\": \"3.00\",\r\n            \"IsObtainedWithAd\": false,\r\n           
-    \"IsObtainedWithIAP\": false\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3dc6ec73-417e-4ce8-a743-663e1f08a347\"\r\n   
+    {\r\n            \"Id\": \"Fox Icon\",\r\n            \"Image\": \"fox-icon\",\r\n           
+    \"CostType\": \"Diamond\",\r\n            \"CostAmount\": \"30.00\",\r\n           
+    \"RewardType\": \"Icon\",\r\n            \"RewardName\": \"fox-icon\",\r\n           
+    \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": false\r\n         
+    }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"210a3e4e-88b8-41ea-a027-6122cd022329\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"IAPProducts_Config\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"IAPShopItems\": [\r\n         
+    {\r\n            \"Id\": \"50 Diamonds Pack\",\r\n            \"Image\": \"Diamond\",\r\n           
+    \"RewardType\": \"Resource\",\r\n            \"RewardName\": \"Diamond\",\r\n           
+    \"RewardAmount\": \"50.00\",\r\n            \"IsObtainedWithAd\": false,\r\n           
+    \"IsObtainedWithIAP\": true,\r\n            \"RemoteId\": \"com.enygmagames.radiants.50diamondspack\"\r\n         
+    },\r\n          {\r\n            \"Id\": \"200 Diamonds Pack\",\r\n           
+    \"Image\": \"Diamond\",\r\n            \"RewardType\": \"Resource\",\r\n           
+    \"RewardName\": \"Diamond\",\r\n            \"RewardAmount\": \"200.00\",\r\n           
+    \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": true,\r\n           
+    \"RemoteId\": \"com.enygmagames.radiants.200diamondspack\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"af9540db-297d-4263-90f0-2b48ea63e65a\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialGold\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1000\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"71dc6b0b-a47f-43ce-acc7-bd2bc5467957\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"6f4ba56f-d6b5-402d-9779-43eb0ebd5ba0\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialDiamonds\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5fc08500-0dde-47ae-8f02-8b7dc3a0ab11\"\r\n   
+    50\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"044e52e6-c832-40ee-993f-69dbda14c40b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"InitialBombBoosters\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"dcd8972c-0c0e-4374-80e2-da15b2fcd9ca\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"333eec1b-435a-41b4-a2c3-b3a32e8e0452\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"InitialColorBombBoosters\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 1\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"516f8d84-e119-451d-adb1-980532c6ea62\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"c25cddd2-6c38-4da7-bdc0-6c0cecde702b\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialProfileImage\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"galaxy-icon\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"183a5238-9392-482a-a27d-538e5d814b0e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"495c2717-9502-4efa-9c2d-e38d29abd6fd\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"InitialHeroId\",\r\n      \"type\": \"int\",\r\n      \"value\": 1\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ade9987d-d8c2-4171-80ea-b3c67be0c70b\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ad9787e2-e97a-4a97-b55d-faa033ccb729\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ResourceInventory_Config\",\r\n     
     \"type\": \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n       
     \"Resources\": [\r\n          {\r\n            \"Id\": \"Gold\",\r\n           
@@ -97,13 +108,13 @@ MonoBehaviour:
     },\r\n          {\r\n            \"Id\": \"Diamond\",\r\n            \"StartAmount\":
     \"50.00\",\r\n            \"AssetName\": \"Diamond\"\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"6445e816-20d0-4a91-86e7-cb3aad723c9e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"216bf0dc-6e7b-470a-8e59-269bc8fbd737\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"Icons_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"Icons\": [\r\n          {\r\n           
     \"Id\": \"galaxy-icon\",\r\n            \"AssetName\": \"galaxy-icon\"\r\n         
     },\r\n          {\r\n            \"Id\": \"fox-icon\",\r\n            \"AssetName\":
     \"fox-icon\"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"57ebe1e1-e3fa-40b1-9044-766983050b34\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"27655414-2b0f-4bca-a0d9-f2cc7fbc1e2b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Boosters_Config\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"Boosters\":
     [\r\n          {\r\n            \"Id\": \"BombBooster\",\r\n            \"StartAmount\":
@@ -111,29 +122,40 @@ MonoBehaviour:
     {\r\n            \"Id\": \"ColorBombBooster\",\r\n            \"StartAmount\":
     \"1.00\",\r\n            \"AssetName\": \"ColorBomb\"\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"7fc201cc-ef20-4149-9bc7-01a3710c335e\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"GoldShop_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
-    null,\r\n      \"value\": {\r\n        \"GoldShopItems\": [\r\n          {\r\n           
-    \"Id\": \"Bomb\",\r\n            \"Image\": \"Bomb\",\r\n            \"CostType\":
-    \"Gold\",\r\n            \"CostAmount\": \"200.00\",\r\n            \"RewardType\":
+    \"3c2a4f4d-1ab4-4ff5-8f11-0a5edc8090fb\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"RegularShop_Config\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": {\r\n        \"RegularShopItems\": [\r\n          {\r\n           
+    \"Id\": \"Bomb\",\r\n            \"Image\": \"Bomb\",\r\n            \"RewardType\":
     \"Booster\",\r\n            \"RewardName\": \"BombBooster\",\r\n            \"RewardAmount\":
-    \"1.00\",\r\n            \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\":
+    \"1.00\",\r\n            \"IsObtainedWithAd\": true,\r\n            \"IsObtainedWithIAP\":
     false\r\n          },\r\n          {\r\n            \"Id\": \"ColorBomb\",\r\n           
     \"Image\": \"ColorBomb\",\r\n            \"CostType\": \"Gold\",\r\n           
     \"CostAmount\": \"500.00\",\r\n            \"RewardType\": \"Booster\",\r\n           
     \"RewardName\": \"ColorBombBooster\",\r\n            \"RewardAmount\": \"1.00\",\r\n           
     \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": false\r\n         
-    },\r\n          {\r\n            \"Id\": \"5 Bombs Pack\",\r\n            \"Image\":
+    },\r\n          {\r\n            \"Id\": \"Free Bombs!\",\r\n            \"Image\":
     \"Bomb\",\r\n            \"CostType\": \"Gold\",\r\n            \"CostAmount\":
-    \"800.00\",\r\n            \"RewardType\": \"Booster\",\r\n            \"RewardName\":
-    \"BombBooster\",\r\n            \"RewardAmount\": \"5.00\",\r\n            \"IsObtainedWithAd\":
+    \"0.00\",\r\n            \"RewardType\": \"Booster\",\r\n            \"RewardName\":
+    \"BombBooster\",\r\n            \"RewardAmount\": \"1.00\",\r\n            \"IsObtainedWithAd\":
     false,\r\n            \"IsObtainedWithIAP\": false\r\n          },\r\n         
-    {\r\n            \"Id\": \"3 Color Bombs Pack\",\r\n            \"Image\": \"ColorBomb\",\r\n           
-    \"CostType\": \"Gold\",\r\n            \"CostAmount\": \"1200.00\",\r\n           
-    \"RewardType\": \"Booster\",\r\n            \"RewardName\": \"ColorBombBooster\",\r\n           
-    \"RewardAmount\": \"3.00\",\r\n            \"IsObtainedWithAd\": false,\r\n           
-    \"IsObtainedWithIAP\": false\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    }\r\n]"
+    {\r\n            \"Id\": \"Fox Icon\",\r\n            \"Image\": \"fox-icon\",\r\n           
+    \"CostType\": \"Diamond\",\r\n            \"CostAmount\": \"30.00\",\r\n           
+    \"RewardType\": \"Icon\",\r\n            \"RewardName\": \"fox-icon\",\r\n           
+    \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": false\r\n         
+    }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"210a3e4e-88b8-41ea-a027-6122cd022329\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"IAPProducts_Config\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"IAPShopItems\": [\r\n         
+    {\r\n            \"Id\": \"50 Diamonds Pack\",\r\n            \"Image\": \"Diamond\",\r\n           
+    \"RewardType\": \"Resource\",\r\n            \"RewardName\": \"Diamond\",\r\n           
+    \"RewardAmount\": \"50.00\",\r\n            \"IsObtainedWithAd\": false,\r\n           
+    \"IsObtainedWithIAP\": true,\r\n            \"RemoteId\": \"com.enygmagames.radiants.50diamondspack\"\r\n         
+    },\r\n          {\r\n            \"Id\": \"200 Diamonds Pack\",\r\n           
+    \"Image\": \"Diamond\",\r\n            \"RewardType\": \"Resource\",\r\n           
+    \"RewardName\": \"Diamond\",\r\n            \"RewardAmount\": \"200.00\",\r\n           
+    \"IsObtainedWithAd\": false,\r\n            \"IsObtainedWithIAP\": true,\r\n           
+    \"RemoteId\": \"com.enygmagames.radiants.200diamondspack\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"2924ef6a-0719-42c5-97d9-7a644b30f3e2\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"5c13e68f-2d44-45cb-8af7-7f13643f32b0\",\r\n   
     \"isDefault\": false,\r\n    \"createdAt\": \"2022-09-07T17:52:12Z\",\r\n   

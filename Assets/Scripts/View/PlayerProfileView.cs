@@ -32,7 +32,7 @@ public class PlayerProfileView : MonoBehaviour
 
     AsyncOperationHandle _currentProfileViewHandle;
 
-    GameProgressionTestService _progressionService;
+    GameProgressionService _progressionService;
     ResourceInventoryProgression _inventoryProgression;
     BoostersInventoryProgression _boosterProgression;
 
@@ -40,7 +40,7 @@ public class PlayerProfileView : MonoBehaviour
 
     public void Initialize(Sprite playerIcon, Action onPopupClosed, AsyncOperationHandle handler)
     {
-        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _progressionService = ServiceLocator.GetService<GameProgressionService>();
         _inventoryProgression = _progressionService.ResourceProgression;
         _boosterProgression = _progressionService.BoostersProgression;
 
@@ -102,9 +102,13 @@ public class PlayerProfileView : MonoBehaviour
     void ChangePlayerIcon(string newIconName)
     {
         _progressionService.Data.ProfileImage = newIconName;
-        _progressionService.Save();
-
-        SetPlayerData();
+        Addressables.LoadAssetAsync<Sprite>(newIconName).Completed += handle =>
+        {
+            if (handle.Result != null)
+            {
+                _playerImage.sprite = handle.Result;
+            }
+        };
     }
 
     public void Close()

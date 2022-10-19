@@ -19,12 +19,12 @@ public class MainMenuView : MonoBehaviour
 
     [SerializeField] Image _playerImage = null;
 
-    GameProgressionTestService _progressionService;
+    GameProgressionService _progressionService;
     ResourceInventoryProgression _inventoryProgression;
 
     public void Initialize()
     {
-        _progressionService = ServiceLocator.GetService<GameProgressionTestService>();
+        _progressionService = ServiceLocator.GetService<GameProgressionService>();
         _inventoryProgression = _progressionService.ResourceProgression;
         _inventoryProgression.OnResourceModified += UpdateResource;
 

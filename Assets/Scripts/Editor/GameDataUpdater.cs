@@ -6,8 +6,8 @@ public static class GameDataUpdater
 {
     const string scriptUrl = "https://script.google.com/macros/s/AKfycbwQ2y__Mb_YAdEohr9qsenZneZmTHigx5TM9kuXAQ_hURRaHrRAO_bVjfXYnbvHO8TT/exec";
 
-    [MenuItem("Game/Update Gold Shop Data")]
-    public static void UpdateGoldShopData()
+    [MenuItem("Game/Update Regular Shop Data")]
+    public static void UpdateRegularShop()
     {
         string url = scriptUrl + "?action=gold-shop";
 
@@ -20,10 +20,31 @@ public static class GameDataUpdater
                 return;
             }
 
-            System.IO.File.WriteAllText(Application.dataPath + "/Resources/GoldShopConfig.json",
+            System.IO.File.WriteAllText(Application.dataPath + "/Resources/RegularShopConfig.json",
                 request.downloadHandler.text);
 
             Debug.Log("Gold shop config updated with text: " + request.downloadHandler.text);
+        };
+    }
+
+    [MenuItem("Game/Update IAP Products Data")]
+    public static void UpdateIAPProductsData()
+    {
+        string url = scriptUrl + "?action=iap-products";
+
+        UnityWebRequest request = new UnityWebRequest(url, "GET", new DownloadHandlerBuffer(), null);
+        request.SendWebRequest().completed += asyncOp =>
+        {
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.Log(request.error);
+                return;
+            }
+
+            System.IO.File.WriteAllText(Application.dataPath + "/Resources/IAPProducts.json",
+                request.downloadHandler.text);
+
+            Debug.Log("IAP config updated with text: " + request.downloadHandler.text);
         };
     }
 

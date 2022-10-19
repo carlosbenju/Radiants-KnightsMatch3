@@ -41,4 +41,8 @@ public class FileGameProgressionProvider : IGameProgressionProvider
 
         GUIUtility.systemCopyBuffer = dir;
     }
+
+    public void SaveToCloud(bool hasFocus)
+    {
+    }
 }

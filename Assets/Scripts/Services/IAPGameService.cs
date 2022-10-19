@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using Game.Services;
 
-public class IAPGameService : IIAPService, IStoreListener
+public class IAPGameService : IService, IStoreListener
 {
     bool _isInitialized = false;
     IStoreController _unityStoreController = null;
