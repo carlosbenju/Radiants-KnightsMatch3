@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-using System.Threading.Tasks;
 
 public class BoardController
 {
@@ -17,20 +14,20 @@ public class BoardController
     public BoardController(BoardModel model)
     {
         Model = model;
-        _width = model.width;
-        _height = model.height;
+        _width = model.Width;
+        _height = model.Height;
     }
 
     public void ProcessTouchedTile(Tile tile)
     {
         List<Tile> matchesOnPressedTile = FindMatchesOnPressedTile(tile);
 
-        if (tile.item.boosterType == BoosterType.Bomb)
+        if (tile.item.BoosterType == BoosterType.Bomb)
         {
             BombAction(tile);
         }
 
-        if (tile.item.boosterType == BoosterType.ColorBomb)
+        if (tile.item.BoosterType == BoosterType.ColorBomb)
         {
             ColorBombAction(tile);
         }
@@ -39,25 +36,11 @@ public class BoardController
         {
             Match3Action(tile, matchesOnPressedTile);
         }
-
-        CollapseTiles();
-    }
-
-    public void CollapseTiles()
-    {
-        for (int y = 0; y < Model.height; y++)
-        {
-            for (int x = 0; x < Model.width; x++)
-            {
-                if (!Model.board[x, y].IsEmpty)
-                    continue;
-            }
-        }
     }
 
     private void Match3Action(Tile tile, List<Tile> matchesOnPressedTile)
     {
-        OnTileDestroyed(matchesOnPressedTile.Count, tile.item.type);
+        OnTileDestroyed(matchesOnPressedTile.Count, tile.item.Type);
         CreateNewTiles(tile, matchesOnPressedTile);
     }
 
@@ -66,18 +49,19 @@ public class BoardController
         List<Tile> tileAdjacents = tile.allAdjacents;
         tileAdjacents.Add(tile);
 
-        OnTileDestroyed(tileAdjacents.Count, tile.item.type);
+        OnTileDestroyed(tileAdjacents.Count, tile.item.Type);
         foreach(Tile t in tileAdjacents)
         {
             CreateNormalTile(t);
         }
     }
+
     private void ColorBombAction(Tile tile)
     {
-        List<Tile> allTilesOfType = GetAllTilesOfType(tile.item.type);
+        List<Tile> allTilesOfType = GetAllTilesOfType(tile.item.Type);
         allTilesOfType.Add(tile);
 
-        OnTileDestroyed(allTilesOfType.Count, tile.item.type);
+        OnTileDestroyed(allTilesOfType.Count, tile.item.Type);
         foreach (Tile t in allTilesOfType)
         {
             CreateNormalTile(t);
@@ -86,7 +70,7 @@ public class BoardController
 
     public Tile GetTileInCoords(int x, int y)
     {
-        return Model.GetCoordsValue(x, y);
+        return Model.GetTileInPosition(x, y);
     }
 
     public List<Tile> FindMatchesOnPressedTile(Tile tile)
@@ -100,8 +84,8 @@ public class BoardController
     {
         foreach (Tile tile in matchedTiles)
         {
-            if (pressedTile.item.boosterType == BoosterType.Bomb 
-                || pressedTile.item.boosterType == BoosterType.ColorBomb || matchedTiles.Count == 3)
+            if (pressedTile.item.BoosterType == BoosterType.Bomb 
+                || pressedTile.item.BoosterType == BoosterType.ColorBomb || matchedTiles.Count == 3)
             {
                 CreateNormalTile(tile);
                 continue;
@@ -124,7 +108,7 @@ public class BoardController
     private void CreateNormalTile(Tile tile)
     {
         tile.item = ItemsDatabase.Items[UnityEngine.Random.Range(0, ItemsDatabase.Items.Length)];
-        tile = Model.CreateNewItemInPosition(tile.x, tile.y, tile.item);
+        tile = Model.CreateTileInPosition(tile.x, tile.y, tile.item);
 
         OnTileChanged?.Invoke(tile);
     }
@@ -134,7 +118,7 @@ public class BoardController
         ItemSO bomb = null;
         foreach (ItemSO item in BoostersDatabase.Boosters)
         {
-            if (item.boosterType == BoosterType.Bomb)
+            if (item.BoosterType == BoosterType.Bomb)
             {
                 bomb = item;
             }
@@ -145,12 +129,12 @@ public class BoardController
             int randomX = UnityEngine.Random.Range(0, _width - 1);
             int randomY = UnityEngine.Random.Range(0, _height - 1);
 
-            tile = Model.CreateNewItemInPosition(randomX, randomY, bomb);
+            tile = Model.CreateTileInPosition(randomX, randomY, bomb);
             OnTileChanged?.Invoke(tile);
             return;
         }
 
-        tile = Model.CreateNewItemInPosition(tile.x, tile.y, bomb);
+        tile = Model.CreateTileInPosition(tile.x, tile.y, bomb);
         OnTileChanged?.Invoke(tile);
     }
 
@@ -159,7 +143,7 @@ public class BoardController
         ItemSO colorBomb = null;
         foreach (ItemSO item in BoostersDatabase.Boosters)
         {
-            if (item.boosterType == BoosterType.ColorBomb)
+            if (item.BoosterType == BoosterType.ColorBomb)
             {
                 colorBomb = item;
             }
@@ -167,28 +151,19 @@ public class BoardController
 
         if (pressedTile == null)
         {
-            colorBomb.type = TileType.Red;
+            colorBomb.Type = TileType.Red;
 
             int randomX = UnityEngine.Random.Range(0, _width - 1);
             int randomY = UnityEngine.Random.Range(0, _height - 1);
 
-            pressedTile = Model.CreateNewItemInPosition(randomX, randomY, colorBomb);
+            pressedTile = Model.CreateTileInPosition(randomX, randomY, colorBomb);
             OnTileChanged?.Invoke(pressedTile);
             return;
         }
 
-        colorBomb.type = pressedTile.item.type;
-        pressedTile = Model.CreateNewItemInPosition(pressedTile.x, pressedTile.y, colorBomb);
+        colorBomb.Type = pressedTile.item.Type;
+        pressedTile = Model.CreateTileInPosition(pressedTile.x, pressedTile.y, colorBomb);
         OnTileChanged?.Invoke(pressedTile);
-    }
-
-    public TileView AssignTileItem(TileView tile)
-    {
-        Tile tileModel = GetTileInCoords(tile.x, tile.y);
-        tile.item = tileModel.item;
-        tile.icon.sprite = tile.item.sprite;
-
-        return tile;
     }
 
     private List<Tile> GetAllTilesOfType(TileType type)
@@ -199,9 +174,9 @@ public class BoardController
         {
             for (int y = 0; y < _height; y++)
             {
-                if (Model.board[x, y].item.type == type)
+                if (Model.Board[x, y].item.Type == type)
                 {
-                    tilesOfType.Add(Model.board[x, y]);
+                    tilesOfType.Add(Model.Board[x, y]);
                 }
             }
         }

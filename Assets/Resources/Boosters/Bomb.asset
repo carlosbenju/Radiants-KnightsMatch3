@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9677b7fe7812847b91068b2713bc23, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: 
-  type: 5
-  boosterType: 1
-  itemName: Bomb
-  sprite: {fileID: 21300000, guid: 2ba3f8a0693f00746a59986a0be5e0f5, type: 3}
+  Type: 5
+  BoosterType: 1
+  ItemName: BombBooster
+  Sprite: {fileID: 21300000, guid: 2ba3f8a0693f00746a59986a0be5e0f5, type: 3}

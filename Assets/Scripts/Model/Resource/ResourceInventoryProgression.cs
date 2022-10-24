@@ -65,7 +65,7 @@ public class ResourceInventoryProgression
 
     public void Load()
     {
-        SaveData savedData = JsonUtility.FromJson<SaveData>(_progressionProvider.Load());
+        SaveDataModel savedData = JsonUtility.FromJson<SaveDataModel>(_progressionProvider.Load());
         Resources = savedData.ResourcesInventory;
         AddNewResourcesFromConfig();
         RemoveUnusedResources();

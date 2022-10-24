@@ -44,7 +44,7 @@ public class IconCollectibleProgression
 
     public void Load()
     {
-        SaveData savedData = JsonUtility.FromJson<SaveData>(_progressionProvider.Load());
+        SaveDataModel savedData = JsonUtility.FromJson<SaveDataModel>(_progressionProvider.Load());
         Icons = savedData.IconInventory;
     }
 }

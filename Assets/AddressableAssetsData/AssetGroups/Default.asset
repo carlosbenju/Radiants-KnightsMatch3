@@ -17,26 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: dad1c3f370654844db6ba7c069fffe5f
   m_SerializeEntries:
-  - m_GUID: dc1a9111d695e084596e3da6ec79b48e
-    m_Address: Diamond
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6d09f4eb6e6855c49b5aa61e5b8c2d44
-    m_Address: Gold
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ef2371a3a5d96794a8975bdd52c74591
-    m_Address: DiamondBar
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5fedbddeea1440f49844cb79b1969351
-    m_Address: GoldBar
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5e7b5be54efef104aaca899eae7d8903
-    m_Address: dragon-icon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: ccd84744077882f4b85bf30d8f186400
     m_Address: fox-icon
     m_ReadOnly: 0
@@ -51,6 +31,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 0f318a83497fadb4bbe469f3f1dbb266
     m_Address: ColorBomb
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1211f91a2eacbf64d9e7c0fcb41b26f1
+    m_Address: sadie-image
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

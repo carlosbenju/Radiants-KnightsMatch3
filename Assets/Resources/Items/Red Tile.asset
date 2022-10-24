@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9677b7fe7812847b91068b2713bc23, type: 3}
   m_Name: Red Tile
   m_EditorClassIdentifier: 
-  type: 0
-  boosterType: 2
-  itemName: Red Tile
-  sprite: {fileID: 21300000, guid: 4088e4f3da7883d4e8b2a2c2eb2d7d30, type: 3}
+  Type: 0
+  BoosterType: 2
+  ItemName: RedTile
+  Sprite: {fileID: 21300000, guid: 4088e4f3da7883d4e8b2a2c2eb2d7d30, type: 3}

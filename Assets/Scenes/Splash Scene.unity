@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameVersionText: {fileID: 1933871317}
-  _isDevBuild: 1
+  _isDevBuild: 0
 --- !u!1 &1914165102
 GameObject:
   m_ObjectHideFlags: 0

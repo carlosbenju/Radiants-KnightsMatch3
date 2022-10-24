@@ -26,7 +26,7 @@ public class NavigationButtonsManager : MonoBehaviour
     {
         Int32.TryParse(text.text, out int level);
 
-        masterSceneManager.LoadScene("Level " + level + " Scene");
+        masterSceneManager.LoadScene("Level " + level);
     }
 
     public int GetButtonText(Button levelSelectionButton)

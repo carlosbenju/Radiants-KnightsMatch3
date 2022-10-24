@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9677b7fe7812847b91068b2713bc23, type: 3}
   m_Name: Color Bomb
   m_EditorClassIdentifier: 
-  type: 0
-  boosterType: 0
-  itemName: Color Bomb
-  sprite: {fileID: 21300000, guid: 0f318a83497fadb4bbe469f3f1dbb266, type: 3}
+  Type: 1
+  BoosterType: 0
+  ItemName: ColorBomb
+  Sprite: {fileID: 21300000, guid: 0f318a83497fadb4bbe469f3f1dbb266, type: 3}

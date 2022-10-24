@@ -16,7 +16,7 @@ public class GameProgressionService : IService
     public ResourceInventoryProgression ResourceProgression;
     public IconCollectibleProgression IconProgression;
     public BoostersInventoryProgression BoostersProgression;
-    public SaveData Data;
+    public SaveDataModel Data;
 
     public void Initialize(RemoteConfigGameService remoteConfig, IGameProgressionProvider provider)
     {
@@ -35,7 +35,7 @@ public class GameProgressionService : IService
 
     public void CreateUser(string name)
     {
-        Data = new SaveData();
+        Data = new SaveDataModel();
         Data.ResourcesInventory = new List<InGameResource>();
         Data.IconInventory = new List<IconCollectible>();
         Data.BoostersInventory = new List<BoosterModel>();
@@ -74,7 +74,7 @@ public class GameProgressionService : IService
         _progressionProvider.SaveToCloud();
     }
 
-    public SaveData Load()
+    public SaveDataModel Load()
     {
         string savedData = _progressionProvider.Load();
         if (string.IsNullOrEmpty(savedData))
@@ -82,7 +82,7 @@ public class GameProgressionService : IService
             return null;
         }
 
-        Data = JsonUtility.FromJson<SaveData>(savedData);
+        Data = JsonUtility.FromJson<SaveDataModel>(savedData);
         LoadProgressions();
         return Data;
     }

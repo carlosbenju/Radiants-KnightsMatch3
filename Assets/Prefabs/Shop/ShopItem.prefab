@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6719486651242789035}
   - component: {fileID: 3164319040109639880}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Cost Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,8 +310,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0f318a83497fadb4bbe469f3f1dbb266, type: 3}
   - {fileID: 21300000, guid: 2ba3f8a0693f00746a59986a0be5e0f5, type: 3}
   - {fileID: 21300000, guid: ccd84744077882f4b85bf30d8f186400, type: 3}
-  - {fileID: 21300000, guid: 5e7b5be54efef104aaca899eae7d8903, type: 3}
-  - {fileID: 813809677, guid: 6516dafa83005c74bb9ce3ac1e40f271, type: 3}
+  - {fileID: 21300000, guid: dc1a9111d695e084596e3da6ec79b48e, type: 3}
   _costSprites:
   - {fileID: -2038758326, guid: 6516dafa83005c74bb9ce3ac1e40f271, type: 3}
   - {fileID: 813809677, guid: 6516dafa83005c74bb9ce3ac1e40f271, type: 3}
@@ -388,7 +387,7 @@ GameObject:
   - component: {fileID: 8272542031073540856}
   - component: {fileID: 5966869254040624574}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Item Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

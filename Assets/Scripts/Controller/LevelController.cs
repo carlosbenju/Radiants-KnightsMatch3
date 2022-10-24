@@ -12,7 +12,6 @@ public class LevelController
     public Action OnTurnPassed = delegate { };
 
     int _waveIndex;
-    bool isFirstCompletion;
 
     public Action OnGameWon;
     public Action OnGameLost;
@@ -32,17 +31,6 @@ public class LevelController
 
         _waveIndex = 0;
         CurrentEnemy = new EnemyModel(Level.Waves[_waveIndex]);
-
-        if (_gameProgressionService.Data.CompletedLevels.Count > 0)
-        {
-            foreach (LevelModel level in _gameProgressionService.Data.CompletedLevels)
-            {
-                isFirstCompletion = Level.LevelNumber == level.LevelNumber ? false : true;
-            }
-        } else
-        {
-            isFirstCompletion = true;
-        }
     }
 
     public void AttackToEnemy(float damage, TileType attackType)
@@ -124,9 +112,10 @@ public class LevelController
 
     void WinGame()
     {
-        if (isFirstCompletion)
+        LevelModel levelModel = _gameProgressionService.Data.CompletedLevels.Find(l => l.LevelNumber == Level.LevelNumber);
+        if (levelModel == null)
         {
-            foreach (InventoryItem reward in Level.Rewards)
+            foreach (Reward reward in Level.Rewards)
             {
                 _gameProgressionService.ResourceProgression.AddResource(reward.Type, reward.Amount);
             }

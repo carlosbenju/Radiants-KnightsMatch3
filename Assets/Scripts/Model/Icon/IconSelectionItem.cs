@@ -11,6 +11,11 @@ public class IconSelectionItem : MonoBehaviour
 
     IconCollectibleProgression _iconProgression;
 
+    void Awake()
+    {
+        _iconButton.interactable = false;
+    }
+
     public void Initialize(IconCollectibleProgression iconProgression, Sprite icon, Action<Image> onIconSelected)
     {
         _iconProgression = iconProgression;
