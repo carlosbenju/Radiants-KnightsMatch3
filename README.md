@@ -58,7 +58,9 @@ Following the same data driven approach, shop items and prices can be updated th
 ## Tools
 
 As we all know, editing JSON files can very easily cause errors and since all the remote configurations have to be sent on a JSON format I created an editor tool that uses a
-script located in google's App Scripts to transform the data on a sheet from Google Sheets into a JSON. This tool saves a file into my resources folder with all the data from the
+script located in google's App Scripts to transform the data on a sheet from Google Sheets into a JSON. 
+
+This tool saves a file into my resources folder with all the data from the
 sheet on a Json so I can easily copy & paste it on my remote configuration. This tool can be found on <b> Assets/Scripts/Editor </b> 
 
 ## Conclusion
