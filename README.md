@@ -60,3 +60,11 @@ Following the same data driven approach, shop items and prices can be updated th
 As we all know, editing JSON files can very easily cause errors and since all the remote configurations have to be sent on a JSON format I created an editor tool that uses a
 script located in google's App Scripts to transform the data on a sheet from Google Sheets into a JSON. This tool saves a file into my resources folder with all the data from the
 sheet on a Json so I can easily copy & paste it on my remote configuration. This tool can be found on <b> Assets/Scripts/Editor </b> 
+
+## Conclusion
+
+During the development of this project I've learned so many useful things and I've become a much more confident developer with Unity's tools and its components system. At the start of the project I didn't know almost anything about good code separation or the usage of design patterns. I didn't even know how useful non-MonoBehaviour scripts can be on a project.
+
+Using patterns like the MVC, the observer or the service locator has helped me understand how powerful they are when used correctly and how they should be implemented. There's so many things I want to learn since I'm still beginning but now I have a solid foundation from where I can keep improving and growing.
+
+There's many things I would improve on this project, for example increase the usage of inheritance and interfaces would make the code more scalable. Also, all the game board and tiles is made using Unity's UI system. Unity's UI porpuse it's not to be reactive to game logic, moving the game visuals from the canvas to normal 2D and 3D game objects would highly improve the game performance and it would be much easier to work with. 
